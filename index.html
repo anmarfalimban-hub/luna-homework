@@ -241,6 +241,21 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 .gbtn .ms{display:flex;gap:4px}
 .gbtn .ms span{width:50px;height:50px;border-radius:50%;overflow:hidden;padding:4px 3px 0;border:3px solid #fff}
 .gbtn .ms svg{width:100%;height:100%;display:block}
+.kidbar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 -6px}
+.kidchip{display:flex;align-items:center;gap:8px;padding:5px 14px 5px 5px;border-radius:99px;border:3px solid var(--line);background:var(--card);font-weight:800;font-size:17px;box-shadow:var(--shadow)}
+.kidchip[aria-pressed="true"]{border-color:var(--grape);background:var(--grape);color:#fff}
+.kidchip.add{padding:5px 16px;font-size:22px;color:var(--soft)}
+.kidrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:2px solid var(--line)}
+.kidrow .x{flex:1;font-weight:800;font-size:19px;unicode-bidi:plaintext}
+.kidrow .x small{display:block;color:var(--soft);font-weight:600;font-size:13px}
+.langbtns{display:flex;gap:10px}
+.langbtns .opt{flex:1;text-align:center;font-size:19px;padding:10px}
+[dir="rtl"] .hw::before{inset:0 0 0 auto}
+[dir="rtl"] .hw{padding:14px 12px 14px 14px}
+[dir="rtl"] .bubble::before{left:auto;right:-12px;border-right-color:transparent;border-left:12px solid var(--line)}
+[dir="rtl"] .cls,[dir="rtl"] .nextrw{text-align:right}
+[dir="rtl"] .bar{direction:ltr}
+[dir="rtl"] .more{right:auto;left:8px}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:70}
 
 @keyframes fade{from{opacity:0}}
@@ -275,6 +290,7 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
       </div>
     </div>
   </header>
+  <div class="kidbar" id="kidBar" hidden></div>
 
   <nav class="tabs" role="tablist">
     <button class="tab" role="tab" data-v="today"><span class="ic">🏠</span><span class="tx">Today</span></button>
@@ -454,6 +470,116 @@ function buddySheet(gender,after,sticky){
     el.querySelector('#go').onclick=()=>{setTheme(pick);close();hop();celebrate();speak(`Hi ${nm()}! I'm ${petName()}!`);if(after)after()};
   },sticky);
 }
+/* ---------- Arabic translation layer ---------- */
+const AR={"Today": "اليوم", "Tomorrow": "غداً", "Yesterday": "أمس", "Day after": "بعد غد", "today": "اليوم", "tomorrow": "غداً", "Sun": "الأحد", "Mon": "الاثنين", "Tue": "الثلاثاء", "Wed": "الأربعاء", "Thu": "الخميس", "Sunday": "الأحد", "Monday": "الاثنين", "Tuesday": "الثلاثاء", "Wednesday": "الأربعاء", "Thursday": "الخميس", "Friday": "الجمعة", "Saturday": "السبت", "Late": "متأخر", "Schedule": "الجدول", "Upcoming": "القادمة", "Done": "تم", "Rewards": "المكافآت", "Keep awake": "إبقاء الشاشة", "Settings": "الإعدادات", "stars earned": "نجمة", "flowers grown": "زهرة", "power bolts": "طاقة", "goals scored": "هدف", "Star jar": "جرة النجوم", "Talk to your buddy": "تحدث مع صديقك", "Keep the screen on so alarms can ring": "أبقِ الشاشة تعمل حتى يرن المنبّه", "Family sync": "المزامنة العائلية", "Add new homework": "أضف واجباً جديداً", "Today’s classes": "حصص اليوم", "tap one to add homework": "اضغط على حصة لإضافة واجب", "Do these first": "ابدأ بهذه", "needed today & tomorrow": "المطلوبة اليوم وغداً", "Set class": "حدد الحصة", "no class": "لا توجد حصة", "It’s the weekend! 🎈": "إنها عطلة نهاية الأسبوع! 🎈", "check if any homework is needed for Sunday": "تحقق إن كان هناك واجب مطلوب يوم الأحد", "Nothing urgent right now. Time to play!": "لا يوجد شيء عاجل الآن. وقت اللعب!", "All homework done. You’re amazing! 🎉": "أنهيت كل الواجبات. أنت رائع! 🎉", "Let's check your homework.": "هيا نتحقق من واجباتك.", "Buddy": "صديقي", "Luna": "لونا", "Daisy": "ديزي", "Bolt": "بولت", "Kicko": "كيكو", "You’re doing great!": "أنت تبلي بلاءً رائعاً!", "Let’s do homework together!": "هيا نحل الواجب معاً!", "I believe in you!": "أنا أثق بك!", "One task at a time 🌈": "مهمة واحدة في كل مرة 🌈", "Stars make me sparkle ✨": "النجوم تجعلني أتألق ✨", "High five! 🖐️": "كفّك! 🖐️", "Edit": "تعديل", "Delete": "حذف", "Mark as done": "تم الإنجاز", "Mark as not done": "لم يُنجز", "Homework": "واجب", "Project": "مشروع", "Task": "مهمة", "Quiz": "اختبار قصير", "Test": "اختبار", "Reading": "قراءة", "Worksheet": "ورقة عمل", "Presentation": "عرض تقديمي", "Other": "أخرى", "Math": "الرياضيات", "Science": "العلوم", "English": "اللغة الإنجليزية", "Arabic": "اللغة العربية", "Quran": "القرآن الكريم", "Islamic Studies": "الدراسات الإسلامية", "Social Studies": "الدراسات الاجتماعية", "Art": "التربية الفنية", "PE": "التربية البدنية", "Computer": "الحاسب", "Life Skills": "المهارات الحياتية", "My school schedule": "جدولي المدرسي", "Tap a box to choose the class. Tap a class to add homework for it.": "اضغط على خانة لاختيار الحصة، واضغط على الحصة لإضافة واجب لها.", "Upcoming homework": "الواجبات القادمة", "No homework waiting. Add one with the big button!": "لا توجد واجبات. أضف واجباً من الزر الكبير!", "Finished homework": "الواجبات المنجزة", "Finish a homework to earn your first star!": "أنجز واجباً لتربح أول نجمة!", "My rewards": "مكافآتي", "finish homework to earn stars": "أنجز الواجبات لتجمع النجوم", "No rewards yet. Ask Mom or Dad to add one!": "لا توجد مكافآت بعد. اطلب من ماما أو بابا إضافة واحدة!", "Rewards I got 💖": "مكافآت حصلت عليها 💖", "Parents: manage rewards": "للوالدين: إدارة المكافآت", "You earned it! Show this to Mom or Dad.": "ربحتها! اعرضها على ماما أو بابا.", "Ready! Show Mom or Dad 🎉": "جاهزة! اعرضها على ماما أو بابا 🎉", "New homework 📝": "واجب جديد 📝", "Edit homework ✏️": "تعديل الواجب ✏️", "What kind is it?": "ما نوعه؟", "What do you need to do? (English or عربي)": "ما المطلوب منك؟ (عربي أو English)", "Bring a family photo": "إحضار صورة عائلية", "Which day did you get it?": "في أي يوم أخذته؟", "Which class?": "أي حصة؟", "Subject": "المادة", "Subject (optional)": "المادة (اختياري)", "Edit or delete subjects": "تعديل المواد أو حذفها", "What’s the homework? (English or عربي)": "ما هو الواجب؟ (عربي أو English)", "More details (optional)": "تفاصيل إضافية (اختياري)", "Page 24, questions 1 to 5": "صفحة 24، الأسئلة من 1 إلى 5", "When do you need it?": "متى تحتاجه؟", "Pick a date": "اختر تاريخاً", "other day": "يوم آخر", "Which day will you do it?": "في أي يوم ستحله؟", "What time should I remind you?": "متى أذكّرك؟", "Other time": "وقت آخر", "Cancel": "إلغاء", "Add homework": "أضف الواجب", "Save changes ✅": "حفظ التعديلات ✅", "Pick a subject first 🙂": "اختر المادة أولاً 🙂", "Write what the homework is 🙂": "اكتب ما هو الواجب 🙂", "Write what you need to do 🙂": "اكتب ما المطلوب منك 🙂", "Homework deleted": "حُذف الواجب", "Saved ✅": "تم الحفظ ✅", "Delete this homework?": "حذف هذا الواجب؟", "No, keep it": "لا، أبقه", "Yes, delete": "نعم، احذف", "Don’t worry, you keep your star ⭐": "لا تقلق، ستبقى نجمتك ⭐", "My subjects 📚": "موادي 📚", "Rename a subject, change its picture, or delete one you added by mistake.": "غيّر اسم مادة أو صورتها، أو احذف مادة أضفتها بالخطأ.", "not in schedule": "ليست في الجدول", "Add a new subject (English or عربي)": "أضف مادة جديدة (عربي أو English)", "Subject name": "اسم المادة", "Add subject": "أضف المادة", "Subject added ✅": "أُضيفت المادة ✅", "Subject deleted": "حُذفت المادة", "Save": "حفظ", "Type the subject name": "اكتب اسم المادة", "Type the subject name first": "اكتب اسم المادة أولاً", "Choose the class": "اختر الحصة", "Change the class": "غيّر الحصة", "Or make a new subject": "أو أنشئ مادة جديدة", "Subject name (English or عربي)": "اسم المادة (عربي أو English)", "Clear box": "إفراغ الخانة", "Close": "إغلاق", "Save new subject": "حفظ المادة الجديدة", "Create a parent PIN 🔒": "أنشئ رمزاً سرياً للوالدين 🔒", "Parents only 🔒": "للوالدين فقط 🔒", "Choose 4 digits. Only parents can add rewards or mark them as given.": "اختر 4 أرقام. الوالدان فقط يستطيعان إضافة المكافآت.", "Enter your 4-digit PIN.": "أدخل الرمز السري المكون من 4 أرقام.", "Type it again": "اكتبه مرة أخرى", "Save PIN": "حفظ الرمز", "Open": "فتح", "The PIN needs 4 digits": "الرمز يجب أن يكون 4 أرقام", "The two PINs don’t match": "الرمزان غير متطابقين", "Wrong PIN": "رمز خاطئ", "No rewards yet. Add the first one below.": "لا توجد مكافآت بعد. أضف أول مكافأة بالأسفل.", "New reward (English or عربي)": "مكافأة جديدة (عربي أو English)", "Ice cream trip": "رحلة آيس كريم", "Picture": "الصورة", "Stars needed": "النجوم المطلوبة", "(counted from today)": "(تُحسب من اليوم)", "Change PIN": "تغيير الرمز", "Add reward": "أضف المكافأة", "Reward added 🎁": "أُضيفت المكافأة 🎁", "Write the reward name": "اكتب اسم المكافأة", "Mark as given": "تم التسليم", "Given ✅": "سُلّمت ✅", "Earned, waiting for you 🎉": "رُبحت، بانتظاركم 🎉", "Yay! 🎉": "رائع! 🎉", "Show this to Mom or Dad 💖": "اعرضها على ماما أو بابا 💖", "Settings ⚙️": "الإعدادات ⚙️", "Name": "الاسم", "Language / اللغة": "اللغة / Language", "My buddy": "صديقي", "Change my buddy": "غيّر صديقي", "Buddy’s name": "اسم الصديق", "Subjects": "المواد", "My subjects: edit or delete": "موادي: تعديل أو حذف", "Classes per day": "عدد الحصص في اليوم", "Reminder sound": "نغمة التذكير", "Magic chime ✨": "جرس سحري ✨", "Xylophone 🎶": "إكسيليفون 🎶", "Bubble pop 🫧": "فقاعات 🫧", "Talking reminder": "التذكير بالصوت", "On": "تشغيل", "Off": "إيقاف", "Children": "الأطفال", "Children: add or remove": "الأطفال: إضافة أو حذف", "Account": "الحساب", "Activate Homework Buddy": "فعّل Homework Buddy", "Activated ✓ · Account & sync": "مفعّل ✓ · الحساب والمزامنة", "Test the alarm 🔔": "جرّب المنبّه 🔔", "For alarms to ring, keep this page open on the iPad with the volume up and the side switch off silent. Tap “Keep awake” so the screen doesn’t turn off.": "حتى يرن المنبّه، أبقِ التطبيق مفتوحاً على الآيباد مع رفع الصوت وإلغاء الوضع الصامت. واضغط «إبقاء الشاشة» حتى لا تنطفئ.", "Screen stays on 🌙": "الشاشة ستبقى تعمل 🌙", "Screen can sleep now": "يمكن للشاشة أن تنطفئ الآن", "This iPad can’t keep the screen on here. Set Auto-Lock to Never in Settings.": "لا يمكن إبقاء الشاشة تعمل هنا. اضبط القفل التلقائي على «أبداً» من إعدادات الآيباد.", "Children 👨‍👩‍👧‍👦": "الأطفال 👨‍👩‍👧‍👦", "Add a child": "أضف طفلاً", "Remove": "حذف", "All children": "كل الأطفال", "Only": "فقط", "Reminders on this device": "التذكيرات على هذا الجهاز", "On a shared iPad keep “All children”. On a child’s own iPad choose only that child.": "على آيباد مشترك اختر «كل الأطفال». وعلى آيباد خاص بطفل اختره هو فقط.", "More than one child is part of the full version. Activate first to add a child.": "إضافة أكثر من طفل ميزة في النسخة الكاملة. فعّل التطبيق أولاً.", "Add more children 👨‍👩‍👧‍👦": "أضف أطفالاً آخرين 👨‍👩‍👧‍👦", "More than one child is part of the full version. Enter your activation code, then you can add brothers and sisters under the same code.": "إضافة أكثر من طفل ميزة في النسخة الكاملة. أدخل كود التفعيل، ثم أضف الإخوة والأخوات على نفس الكود.", "Welcome to Homework Buddy!": "أهلاً بك في Homework Buddy!", "Let’s get to know you.": "لنتعرّف عليك.", "What’s your name? (English or عربي)": "ما اسمك؟ (عربي أو English)", "Your name": "اسمك", "Are you a boy or a girl?": "هل أنت ولد أم بنت؟", "I’m a boy": "أنا ولد", "I’m a girl": "أنا بنت", "Next ➜": "التالي ⬅", "Type your name first 🙂": "اكتب اسمك أولاً 🙂", "Choose boy or girl 🙂": "اختر ولد أو بنت 🙂", "Pick your buddy! ✨": "اختر صديقك! ✨", "Your buddy reminds you about homework and cheers you on.": "صديقك يذكّرك بالواجبات ويشجعك.", "For girls": "للبنات", "For boys": "للأولاد", "You can change your buddy later in Settings.": "يمكنك تغيير صديقك لاحقاً من الإعدادات.", "stars": "النجوم", "flowers": "الزهور", "power": "الطاقة", "goals": "الأهداف", "I’ll remind you when it’s homework time!": "سأذكّرك عندما يحين وقت الواجب!", "Start my free trial": "ابدأ التجربة المجانية", "I have an activation code": "لدي كود تفعيل", "Seedling": "بذرة", "Bright Star": "نجمة لامعة", "Super Star": "نجمة خارقة", "Homework Hero": "بطل الواجبات", "Galaxy Queen": "ملكة المجرة", "Little Seed": "بذرة صغيرة", "Sprout": "برعم", "Blossom": "زهرة متفتحة", "Bouquet": "باقة زهور", "Garden Queen": "ملكة الحديقة", "Rookie Bot": "روبوت مبتدئ", "Turbo Bot": "روبوت سريع", "Mega Bot": "روبوت عملاق", "Robo Hero": "بطل الروبوتات", "Galaxy Commander": "قائد المجرة", "Rookie": "مبتدئ", "Striker": "مهاجم", "Playmaker": "صانع ألعاب", "Captain": "كابتن", "Legend": "أسطورة", "I finished it!": "أنهيته!", "I’m starting now 💪": "سأبدأ الآن 💪", "Remind me in 10 minutes": "ذكّرني بعد 10 دقائق", "Change time or details": "تغيير الوقت أو التفاصيل", "You got this! I’ll check again in 30 minutes 💪": "تستطيع! سأذكّرك بعد 30 دقيقة 💪", "Okay! Back in 10 minutes ⏰": "حسناً! سأعود بعد 10 دقائق ⏰", "Great job": "أحسنت", "Awesome": "رائع", "You did it": "لقد فعلتها", "Super star": "أنت نجم", "Well done": "عمل رائع", "Activate Homework Buddy 🔑": "فعّل Homework Buddy 🔑", "Activate again 🔑": "فعّل مرة أخرى 🔑", "Activation code": "كود التفعيل", "Activate ✨": "فعّل ✨", "Checking…": "جارٍ التحقق…", "Not now": "ليس الآن", "Get a code on WhatsApp": "اطلب كوداً عبر واتساب", "Activate": "فعّل", "Enter the activation code you received. Use the same code on the iPad and on your parents’ phones to share the homework.": "أدخل كود التفعيل الذي وصلك. استخدم نفس الكود على الآيباد وجوالات الوالدين لمشاركة الواجبات.", "To keep adding homework, ask your mom or dad for an activation code.": "لتستمر في إضافة الواجبات، اطلب من ماما أو بابا كود التفعيل.", "Your free trial is finished": "انتهت التجربة المجانية", "Your activation stopped": "توقف التفعيل", "Tap here to activate Homework Buddy and keep going": "اضغط هنا لتفعيل Homework Buddy والاستمرار", "This code is not correct. Check it and try again.": "الكود غير صحيح. تحقق منه وحاول مرة أخرى.", "This code has been stopped.": "تم إيقاف هذا الكود.", "This code has expired.": "انتهت صلاحية هذا الكود.", "This code is already used on the maximum number of devices.": "هذا الكود مستخدم على الحد الأقصى من الأجهزة.", "This device was removed from the account.": "أُزيل هذا الجهاز من الحساب.", "Please try again.": "حاول مرة أخرى.", "Could not activate. Try again.": "تعذر التفعيل. حاول مرة أخرى.", "No internet connection. Try again.": "لا يوجد اتصال بالإنترنت. حاول مرة أخرى.", "Type the full code, like HWB-AB12-CD34": "اكتب الكود كاملاً، مثل HWB-AB12-CD34", "Homework Buddy is activated! 🎉": "تم تفعيل Homework Buddy! 🎉", "Account 🔑": "الحساب 🔑", "Activated ✓": "مفعّل ✓", "(no expiry)": "(بدون انتهاء)", "Remove from this device": "إزالة من هذا الجهاز", "Sync now": "زامن الآن", "Use this same code on your family’s phones and iPads to share the homework.": "استخدم نفس الكود على جوالات العائلة وأجهزة الآيباد لمشاركة الواجبات.", "Synced ✓": "تمت المزامنة ✓", "Activation removed from this device": "أُزيل التفعيل من هذا الجهاز", "No internet": "لا يوجد إنترنت", "Could not reach the cloud": "تعذر الوصول للسحابة", "Tap to start": "اضغط للبدء", "Your friendly homework reminder": "صديقك الذي يذكّرك بالواجبات", "Reminders": "التذكيرات", "Stars": "النجوم", "Synced": "تمت المزامنة", "I finished it": "أنهيته", "Parents: I already have an activation code": "للوالدين: لدي كود تفعيل"};
+const AR_TYPES={homework:'واجب',project:'مشروع',task:'مهمة',quiz:'اختبار قصير',test:'اختبار',reading:'قراءة',worksheet:'ورقة عمل',presentation:'عرض تقديمي'};
+const trw=w=>AR[w]!==undefined?AR[w]:w;
+const AR_PAT=[
+ [/^Use this same code on your family’s phones and iPads to share the homework\. (.+)$/,m=>`استخدم نفس الكود على جوالات العائلة وأجهزة الآيباد لمشاركة الواجبات. ${trText(m[1])||m[1]}`],
+ [/^(\d+) \/ (\d+) stars$/,m=>`${m[1]} / ${m[2]} نجمة`],
+ [/^([^\p{L}\p{N}]*?)\s*([\p{L}].*) (Homework|Project|Task|Quiz|Test|Reading|Worksheet|Presentation)$/u,m=>`${m[1]?m[1]+' ':''}${AR[m[3]]} ${trw(m[2])}`],
+ [/^Sync problem: (.+)$/,m=>`مشكلة في المزامنة: ${trw(m[1])}`],
+ [/^Remove (.+) and all their homework from every device\? This can’t be undone\.$/,m=>`حذف ${m[1]} وكل واجباته من جميع الأجهزة؟ لا يمكن التراجع.`],
+ [/^(\d{1,2}):(\d\d) (AM|PM)$/,m=>`${m[1]}:${m[2]} ${m[3]==='AM'?'ص':'م'}`],
+ [/^Period (\d+)$/,m=>`الحصة ${m[1]}`],
+ [/^Needed (.+)$/,m=>`مطلوب ${trw(m[1])}`],
+ [/^needed (.+)$/,m=>`مطلوب ${trw(m[1].charAt(0).toUpperCase()+m[1].slice(1))}`],
+ [/^Late! Needed (.+)$/,m=>`متأخر! مطلوب ${trw(m[1])}`],
+ [/^⏰ (Today|Tomorrow|Yesterday) (.+)$/,m=>`⏰ ${AR[m[1]]} ${m[2]}`],
+ [/^Done (.+)$/,m=>`أُنجز ${trw(m[1])}`],
+ [/^⏰ I’ll remind you (today|tomorrow) at (.+?)( \(that time already passed, so in 2 minutes\))?$/,m=>`⏰ سأذكّرك ${m[1]==='today'?'اليوم':'غداً'} الساعة ${m[2]}${m[3]?' (هذا الوقت مضى، لذلك بعد دقيقتين)':''}`],
+ [/^⏰ I’ll remind you on (.+?) at (.+?)( \(that time already passed, so in 2 minutes\))?$/,m=>`⏰ سأذكّرك يوم ${m[1]} الساعة ${m[2]}${m[3]?' (هذا الوقت مضى، لذلك بعد دقيقتين)':''}`],
+ [/^Good (morning|afternoon|evening), (.+)!$/,m=>`${m[1]==='morning'?'صباح الخير':'مساء الخير'} يا ${m[2]}!`],
+ [/^Good (morning|afternoon|evening)!$/,m=>m[1]==='morning'?'صباح الخير!':'مساء الخير!'],
+ [/^You have (\d+) homework tasks? to do\.$/,m=>`لديك ${m[1]} ${m[1]==='1'?'واجب':m[1]==='2'?'واجبان':'واجبات'} لم تُنجز.`],
+ [/^You have (\d+) to do\. (\d+) (?:is|are) late, let’s start there!$/,m=>`لديك ${m[1]} لم تُنجز، منها ${m[2]} متأخر. لنبدأ بها!`],
+ [/^Free trial: (\d+) of (\d+) homework left$/,m=>`التجربة المجانية: بقي ${m[1]} من ${m[2]} واجب`],
+ [/^You used your (\d+) free homework! 🎉$/,m=>`استخدمت الواجبات المجانية الـ ${m[1]}! 🎉`],
+ [/^(\d+) free homework$/,m=>`${m[1]} واجب مجاناً`],
+ [/^⭐ (\d+) of (\d+) stars$/,m=>`⭐ ${m[1]} من ${m[2]} نجمة`],
+ [/^(\d+) more stars? to go!$/,m=>`بقي ${m[1]} ${m[1]==='1'?'نجمة':'نجوم'}!`],
+ [/^You got it on (.+) 💖$/,m=>`حصلت عليها في ${m[1]} 💖`],
+ [/^Collect (\S+) (.+)$/,m=>`اجمع ${trw(m[1])} ${m[2]}`],
+ [/^Let’s go with (.+)!$/,m=>`لنبدأ مع ${trw(m[1])}!`],
+ [/^Hi (.+)! I’m (.+)$/,m=>`أهلاً ${m[1]}! أنا ${trw(m[2])}`],
+ [/^(.+)! It’s (homework|study|task) time! ⏰$/,m=>`${m[1]}! حان وقت ${m[2]==='study'?'المذاكرة':m[2]==='task'?'المهمة':'الواجب'}! ⏰`],
+ [/^(.+)! It’s homework time!$/,m=>`${m[1]}! حان وقت الواجب!`],
+ [/^Added! I’ll remind you (.+) at (.+) ⏰$/,m=>`تمت الإضافة! سأذكّرك ${m[1]==='today'?'اليوم':m[1]==='tomorrow'?'غداً':trw(m[1])} الساعة ${m[2]} ⏰`],
+ [/^(Great job|Awesome|You did it|Super star|Well done), (.+)! \+1 (.+)$/,m=>`${AR[m[1]]} يا ${m[2]}! +1 ${m[3]}`],
+ [/^New level: (.+)$/,m=>`مستوى جديد: ${trw(m[1])}`],
+ [/^Rewards for (.+) 🎁$/,m=>`مكافآت ${m[1]} 🎁`],
+ [/^(.+) homework$/,m=>AR[m[1]]?`واجب ${AR[m[1]]}`:null],
+ [/^Add (.+) homework$/,m=>`أضف واجب ${trw(m[1])}`],
+ [/^(\d+) homework to do · (\d+) (.+)$/,m=>`${m[1]} واجب متبقٍ · ${m[2]} ${m[3]}`],
+ [/^(\d+) (class|classes) in schedule$/,m=>`${m[1]} ${m[1]==='1'?'حصة':'حصص'} في الجدول`],
+ [/^(\d+) (class|classes) in schedule · (\d+) homework$/,m=>`${m[1]} ${m[1]==='1'?'حصة':'حصص'} في الجدول · ${m[3]} واجب`],
+ [/^(Sunday|Monday|Tuesday|Wednesday|Thursday), period (\d+)$/,m=>`${AR[m[1]]}، الحصة ${m[2]}`],
+ [/^Finished homework (\d+) done$/,m=>`الواجبات المنجزة ${m[1]}`],
+ [/^(\d+) done$/,m=>`${m[1]} منجز`],
+ [/^until (.+)$/,m=>`حتى ${m[1]}`],
+ [/^Last synced at (.+)$/,m=>`آخر مزامنة ${m[1]}`],
+ [/^Synced (.+)$/,m=>`تمت المزامنة ${m[1]}`],
+ [/^“(.+)” is already in your subjects$/,m=>`«${m[1]}» موجودة في موادك`],
+ [/^“(.+)” was already there, so I used it$/,m=>`«${m[1]}» موجودة، فاستخدمتها`],
+ [/^Duplicate removed\. Its classes now use the other “(.+)” ✅$/,m=>`حُذفت المادة المكررة، وأصبحت حصصها على «${m[1]}» ✅`],
+ [/^Wow (.+)! You earned a reward!$/,m=>`رائع يا ${m[1]}! ربحت مكافأة!`],
+ [/^Yay (.+)! You earned a reward!$/,m=>`رائع يا ${m[1]}! ربحت مكافأة!`],
+];
+function trText(v){
+  const k=v.trim();if(!k)return null;
+  if(AR[k]!==undefined)return v.replace(k,AR[k]);
+  for(const [re,fn] of AR_PAT){const m=k.match(re);if(m){const o=fn(m);if(o!=null)return v.replace(k,o)}}
+  let m=k.match(/^([^\p{L}\p{N}]+)\s*(.+)$/u);
+  if(m){const r=trText(m[2]);if(r!=null)return v.replace(k,m[1].trimEnd()+' '+r.trim())}
+  m=k.match(/^(.+?)\s*([^\p{L}\p{N}“”()]+)$/u);
+  if(m){const r=trText(m[1]);if(r!=null)return v.replace(k,r.trim()+' '+m[2].trimStart())}
+  return null;
+}
+const trSkip=el=>!el||/^(SCRIPT|STYLE|TEXTAREA)$/.test(el.nodeName)||(el.closest&&el.closest('[data-nt]'));
+function trNode(n,ar){
+  if(trSkip(n.parentElement))return;
+  if(ar){if(n.__ar===n.nodeValue)return;const o=trText(n.nodeValue);if(o!=null&&o!==n.nodeValue){n.__en=n.nodeValue;n.__ar=o;n.nodeValue=o}}
+  else if(n.__en!=null&&n.nodeValue===n.__ar){n.nodeValue=n.__en;n.__ar=null}
+}
+function trAttrs(el,ar){
+  if(!el.getAttribute||(el.closest&&el.closest('[data-nt]')))return;
+  ['placeholder','aria-label','title'].forEach(a=>{const v=el.getAttribute(a);if(v==null)return;const key='en'+a.replace('-','');
+    if(ar){if(el.dataset[key+'Ar']===v)return;const o=trText(v);if(o!=null&&o!==v){el.dataset[key]=v;el.dataset[key+'Ar']=o;el.setAttribute(a,o)}}
+    else if(el.dataset[key]!=null&&el.dataset[key+'Ar']===v){el.setAttribute(a,el.dataset[key]);delete el.dataset[key+'Ar']}});
+}
+function translateTree(root,ar){
+  if(ar===undefined)ar=state.lang==='ar';
+  if(root.nodeType===3){trNode(root,ar);return}
+  if(root.nodeType!==1)return;
+  trAttrs(root,ar);
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);let n;
+  while((n=w.nextNode())){if(n.nodeType===3)trNode(n,ar);else trAttrs(n,ar)}
+}
+function applyLang(){
+  const ar=state.lang==='ar',r=document.documentElement,want=ar?'ar':'en';
+  if(r.lang!==want){r.lang=want;r.dir=ar?'rtl':'ltr';translateTree(document.body,ar)}
+}
+new MutationObserver(ms=>{if(!state||state.lang!=='ar')return;
+  for(const m of ms){if(m.type==='characterData')trNode(m.target,true);else if(m.type==='attributes')trAttrs(m.target,true);else m.addedNodes.forEach(n=>translateTree(n,true))}
+}).observe(document.documentElement,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label','title']});
+const AR_SAY={'Great job':'أحسنت','Awesome':'رائع','You did it':'لقد فعلتها','Super star':'أنت نجم','Well done':'عمل رائع'};
+const SUBJ_SAY=w=>AR[w]||w;
+const AR_SPEECH=[
+ [/^Hi (.+)! I'm (.+)!$/,m=>`أهلاً ${m[1]}! أنا ${trw(m[2])}!`],
+ [/^Hi (.+)! Let's check your homework\.$/,m=>`أهلاً ${m[1]}! هيا نتحقق من واجباتك.`],
+ [/^Hi (.+)!$/,m=>`أهلاً ${m[1]}!`],
+ [/^Yay! You are all set!$/,m=>'رائع! كل شيء جاهز!'],
+ [/^Let's add your first homework(, (.+))?!$/,m=>`هيا نضيف أول واجب لك${m[2]?' يا '+m[2]:''}!`],
+ [/^Wow (.+)! You earned a reward! (.+)$/,m=>`رائع يا ${m[1]}! ربحت مكافأة! ${m[2]}`],
+ [/^(.+)! It's homework time!$/,m=>`${m[1]}! حان وقت الواجب!`],
+ [/^(Great job|Awesome|You did it|Super star|Well done), (.+)!$/,m=>`${AR_SAY[m[1]]} يا ${m[2]}!`],
+ [/^(.+)! Time for your task: (.+)!$/,m=>`${m[1]}! حان وقت مهمتك: ${m[2]}`],
+ [/^(.+)! It's time for your task!$/,m=>`${m[1]}! حان وقت مهمتك!`],
+ [/^(.+)! It's time to (?:do your|work on your|study for your|prepare your) (.*?)(homework|project|task|quiz|test|reading|worksheet|presentation)!$/,
+   m=>`${m[1]}! حان وقت ${m[3]==='quiz'||m[3]==='test'?'مذاكرة ':''}${AR_TYPES[m[3]]}${m[2].trim()?' '+SUBJ_SAY(m[2].trim()):''}!`],
+];
+function trSpeech(t){for(const [re,fn] of AR_SPEECH){const m=t.match(re);if(m)return fn(m)}const r=trText(t);return r||t}
+
 const DAYS=[{i:0,s:'Sun',n:'Sunday'},{i:1,s:'Mon',n:'Monday'},{i:2,s:'Tue',n:'Tuesday'},{i:3,s:'Wed',n:'Wednesday'},{i:4,s:'Thu',n:'Thursday'}];
 const PALETTE=['#FF5FA8','#7B5CFF','#1FBF9F','#FF9F1C','#2D9CDB','#E84393','#00B894','#A66CFF','#F76E11','#0FB5C9','#D35400','#6C5CE7'];
 const EMOJIS=['🔢','🔬','🔤','✍️','📖','🕌','🌍','🎨','⚽','💻','🧩','🎵','🧪','📐','🌱','🦋','🏠','📝','🌙','🧠'];
@@ -465,7 +591,7 @@ const DEFAULT_SUBJECTS=[
 
 function freshState(){
   const schedule={};DAYS.forEach(d=>schedule[d.i]=Array(9).fill(null));
-  return {v:1,rev:0,name:'',trialUsed:0,pet:'',theme:'',gender:'',rewards:[],pin:null,periods:9,m9:true,sound:'chime',voice:true,subjects:DEFAULT_SUBJECTS,schedule,hw:[],stars:0};
+  return {v:1,rev:0,name:'',lang:'',trialUsed:0,pet:'',theme:'',gender:'',rewards:[],pin:null,periods:9,m9:true,sound:'chime',voice:true,subjects:DEFAULT_SUBJECTS,schedule,hw:[],stars:0};
 }
 let state=freshState();
 let dbRef=null,saveTimer=null,view='today',alerting=null,audioCtx=null,wakeLock=null;
@@ -479,8 +605,9 @@ const fromKey=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d
 const todayK=()=>key(new Date());
 const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
 const nextSchool=d=>{let x=new Date(d);do{x=addDays(x,1)}while(x.getDay()>4);return x};
-const fmtDate=k=>fromKey(k).toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'});
-const fmtTime=t=>new Date(t).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+const LOC=()=>state&&state.lang==='ar'?'ar-SA-u-ca-gregory':'en-US';
+const fmtDate=k=>fromKey(k).toLocaleDateString(LOC(),{weekday:'short',day:'numeric',month:'short'});
+const fmtTime=t=>new Date(t).toLocaleTimeString(LOC(),{hour:'numeric',minute:'2-digit'});
 const subj=id=>state.subjects.find(s=>s.id===id);
 function relDay(k){
   const diff=Math.round((fromKey(k)-fromKey(todayK()))/864e5);
@@ -496,17 +623,64 @@ function migrate(raw){
   if(raw&&!raw.m9){if(state.periods<9)state.periods=9;state.m9=true}
   DAYS.forEach(d=>{state.schedule[d.i]=state.schedule[d.i]||[];while(state.schedule[d.i].length<state.periods)state.schedule[d.i].push(null)});
 }
-function loadLocal(){try{const r=localStorage.getItem('luna-hw');if(r){const d=JSON.parse(r);state=Object.assign(freshState(),d);migrate(d)}}catch(e){}migrate()}
+let fam=null,activeId=null,lastSnaps={},lastFamSig='';
+const FAM_KEY='hb-family',ACT_KEY='hb-active',ALARM_KEY='hb-alarms';
+const newKidId=()=>'k'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const isBlank=k=>!k||(!k.name&&!(k.hw||[]).length);
+function wrapFam(d){
+  if(!d)return null;if(d.kids)return d;
+  return {v:2,kids:{k1:d},order:['k1'],pin:d.pin||null,t:d.t||0,delKids:{}};
+}
+function normalizeFam(f){
+  f.kids=f.kids||{};f.delKids=f.delKids||{};f.order=(f.order||[]).filter(id=>f.kids[id]);
+  Object.keys(f.kids).forEach(id=>{f.kids[id]=Object.assign(freshState(),f.kids[id]);if(!f.order.includes(id))f.order.push(id)});
+  if(f.pin===undefined)f.pin=null;return f;
+}
+const famSig=f=>canon({pin:f.pin||null,order:f.order||[]});
+function persistFam(){try{localStorage.setItem(FAM_KEY,JSON.stringify(fam));localStorage.setItem(ACT_KEY,activeId)}catch(e){}}
+function useKid(id){
+  if(activeId&&lastSnap)lastSnaps[activeId]=lastSnap;
+  activeId=id;state=fam.kids[id];migrate(null);
+  lastSnap=lastSnaps[id]||snapOf(state);lastSnaps[id]=lastSnap;
+  try{localStorage.setItem(ACT_KEY,id)}catch(e){}
+}
+function adoptFam(next,keepActive){
+  fam=normalizeFam(next);
+  lastSnaps={};Object.keys(fam.kids).forEach(id=>lastSnaps[id]=snapOf(fam.kids[id]));
+  let a=keepActive&&fam.kids[keepActive]?keepActive:fam.order[0];
+  if(!a){a=newKidId();fam.kids[a]=freshState();fam.order.push(a);lastSnaps[a]=snapOf(fam.kids[a])}
+  activeId=null;lastSnap=null;useKid(a);lastFamSig=famSig(fam);persistFam();
+}
+function mergeFamily(a,b,preferB){
+  const del={...(a.delKids||{})};Object.entries(b.delKids||{}).forEach(([k,v])=>{if(!del[k]||v>del[k])del[k]=v});
+  const ids=[...new Set([...Object.keys(a.kids||{}),...Object.keys(b.kids||{})])];
+  let kids={};
+  ids.forEach(id=>{const ka=(a.kids||{})[id],kb=(b.kids||{})[id];
+    let k=ka&&kb?mergeState(ka,kb,preferB):JSON.parse(JSON.stringify(ka||kb));
+    if(del[id]&&del[id]>=(k.t||0))return;kids[id]=k});
+  if(Object.values(kids).some(k=>!isBlank(k)))Object.keys(kids).forEach(id=>{if(isBlank(kids[id]))delete kids[id]});
+  const top=preferB||(b.t||0)>(a.t||0)?b:a;
+  const order=[...(top.order||[]),...(a.order||[]),...(b.order||[])].filter((id,i,arr)=>kids[id]&&arr.indexOf(id)===i);
+  return {v:2,kids,order,pin:top.pin??a.pin??null,t:Math.max(a.t||0,b.t||0),delKids:del};
+}
+function loadLocal(){
+  let f=null;try{f=JSON.parse(localStorage.getItem(FAM_KEY)||'null')}catch(e){}
+  if(!f){let d=null;try{d=JSON.parse(localStorage.getItem('luna-hw')||'null')}catch(e){}
+    f=d?wrapFam(d):{v:2,kids:{},order:[],pin:null,t:0,delKids:{}}}
+  let a=null;try{a=localStorage.getItem(ACT_KEY)}catch(e){}
+  adoptFam(f,a);
+}
 function save(){
   stamp();
   state.rev=(state.rev||0)+1;
-  try{localStorage.setItem('luna-hw',JSON.stringify(state))}catch(e){}
+  const fs=famSig(fam);if(fs!==lastFamSig){fam.t=Date.now();lastFamSig=fs}
+  persistFam();
   clearTimeout(saveTimer);
   saveTimer=setTimeout(()=>{if(dbRef)dbRef.set(JSON.parse(JSON.stringify(state))).catch(()=>{});else if(licOK())syncNow()},700);
 }
 function prune(){
   const cut=Date.now()-60*864e5;
-  state.hw=state.hw.filter(h=>!(h.done&&h.doneAt<cut));
+  Object.values(fam.kids).forEach(k=>{k.hw=(k.hw||[]).filter(h=>!(h.done&&h.doneAt<cut))});
 }
 async function connectDb(){
   try{
@@ -529,16 +703,18 @@ async function connectDb(){
 /* ---------- Family cloud sync (Supabase) ---------- */
 const SB_URL='https://tpwzflhnsncwnhddnfqz.supabase.co';
 const SB_KEY='sb_publishable_3TAz5OaFcP7B1178f2LDvQ_ILGgpHir';
-let syncing=false,syncAgain=false,lastSync=0,syncErr='',lastSnap={hw:{},rewards:{},top:''};
+let syncing=false,syncAgain=false,lastSync=0,syncErr='',lastSnap=null;
 const cloudOK=()=>!(window.claude&&window.claude.use);
 const LIST_KEYS=['hw','rewards','del','t','rev'];
 function topSig(o){const c={};Object.keys(o).sort().forEach(k=>{if(!LIST_KEYS.includes(k))c[k]=o[k]});return JSON.stringify(c)}
 const itemSig=x=>{const c={...x};delete c.u;return JSON.stringify(c)};
-function snap(){
-  lastSnap={hw:{},rewards:{},top:topSig(state)};
-  (state.hw||[]).forEach(x=>lastSnap.hw[x.id]=itemSig(x));
-  (state.rewards||[]).forEach(x=>lastSnap.rewards[x.id]=itemSig(x));
+function snapOf(st){
+  const o={hw:{},rewards:{},top:topSig(st)};
+  (st.hw||[]).forEach(x=>o.hw[x.id]=itemSig(x));
+  (st.rewards||[]).forEach(x=>o.rewards[x.id]=itemSig(x));
+  return o;
 }
+function snap(){lastSnap=snapOf(state);if(activeId)lastSnaps[activeId]=lastSnap}
 function stamp(){
   const now=Date.now();state.del=state.del||{};
   ['hw','rewards'].forEach(k=>{
@@ -600,14 +776,14 @@ async function syncNow(preferRemote){
     const r=await rpc('get_license_data',{p_code:lic.code,p_device:devId()});
     if(!r||!r.ok){syncing=false;licenseLost(r?r.reason:'not_found');return}
     lic.expires=r.expires_at||null;lic.checked=Date.now();saveLic();
-    const remote=r.data;
-    if(!remote){await rpc('save_license_data',{p_code:lic.code,p_device:devId(),p_data:state});}
+    const remote=wrapFam(r.data);
+    if(!remote){await rpc('save_license_data',{p_code:lic.code,p_device:devId(),p_data:fam});}
     else{
-      const merged=mergeState(state,remote,preferRemote);
-      const same=canon(merged)===canon(Object.assign(freshState(),remote));
-      const localChanged=canon(merged)!==canon(state);
-      adopt(merged);
-      if(!same)await rpc('save_license_data',{p_code:lic.code,p_device:devId(),p_data:state});
+      const merged=mergeFamily(fam,normalizeFam(JSON.parse(JSON.stringify(remote))),preferRemote);
+      const same=canon(merged)===canon(normalizeFam(JSON.parse(JSON.stringify(remote))));
+      const localChanged=canon(merged)!==canon(fam);
+      if(localChanged)adoptFam(merged,activeId);
+      if(!same)await rpc('save_license_data',{p_code:lic.code,p_device:devId(),p_data:fam});
       if(localChanged&&!document.querySelector('.scrim'))render();
     }
     lastSync=Date.now();
@@ -639,8 +815,8 @@ function trialBanner(){
     <span class="pill on" style="white-space:nowrap">🔑 Activate</span></button>`;
 }
 function activationSheet(reason,after){
-  const title=reason==='limit'?`You used your ${trialLimit()} free homework! 🎉`:reason==='invalid'?'Activate again 🔑':'Activate Homework Buddy 🔑';
-  const sub=reason==='limit'?`To keep adding homework, ask your mom or dad for an activation code.`
+  const title=reason==='multi'?'Add more children 👨‍👩‍👧‍👦':reason==='limit'?`You used your ${trialLimit()} free homework! 🎉`:reason==='invalid'?'Activate again 🔑':'Activate Homework Buddy 🔑';
+  const sub=reason==='multi'?'More than one child is part of the full version. Enter your activation code, then you can add brothers and sisters under the same code.':reason==='limit'?`To keep adding homework, ask your mom or dad for an activation code.`
     :reason==='invalid'?esc(REASONS[lic&&lic.reason]||'Enter a new activation code.')
     :'Enter the activation code you received. Use the same code on the iPad and on your parents’ phones to share the homework.';
   openSheet(`<div style="text-align:center"><span class="bigUni" style="width:110px;height:110px;border-radius:50%;background:var(--ring);overflow:hidden;padding:8px 5px 0">${MASCOT()}</span>
@@ -652,7 +828,7 @@ function activationSheet(reason,after){
     ${contactHtml()}
     <div class="btns"><button class="btn" id="cancel">Not now</button></div>`,
   (el,close)=>{
-    el.querySelector('#cancel').onclick=close;
+    el.querySelector('#cancel').onclick=()=>{close();if(!state.name)setTimeout(()=>onboarding(),50)};
     const go=async()=>{
       const code=el.querySelector('#ac').value.trim().toUpperCase().replace(/\s/g,'');
       const err=el.querySelector('#acErr');
@@ -662,6 +838,7 @@ function activationSheet(reason,after){
         const r=await rpc('activate_license',{p_code:code,p_device:devId(),p_device_name:devName()});
         if(!r||!r.ok){err.textContent=REASONS[r&&r.reason]||'Could not activate. Try again.';b.disabled=false;b.textContent='Activate ✨';return}
         lic={code:r.code,status:'ok',expires:r.expires_at||null,at:Date.now(),checked:Date.now()};saveLic();
+        if(r.has_data&&Object.values(fam.kids).every(k=>!(k.hw||[]).length&&!k.stars))Object.values(fam.kids).forEach(k=>{k.name='';k.t=0});
         close();await syncNow(!!r.has_data);render();celebrate();playTune('xylo');
         toast('Homework Buddy is activated! 🎉');speak(`Yay! You are all set!`);
         if(after)after();
@@ -685,11 +862,14 @@ function accountSheet(){
       lic=null;saveLic();syncPill();close();render();toast('Activation removed from this device')};
   });
 }
-function onboarding(){
+function onboarding(o={}){
   let g=state.gender||'';
+  if(!state.lang&&o.add&&fam.kids[o.prev])state.lang=fam.kids[o.prev].lang||'en';
   openSheet(`<div style="text-align:center"><span style="display:inline-block;width:130px">${NOTEBOOK}</span>
-    <h3 style="margin-top:6px">Welcome to Homework Buddy!</h3>
+    <h3 style="margin-top:6px">${o.add?'Add a child':'Welcome to Homework Buddy!'}</h3>
     <p style="font-size:17px;color:var(--soft);margin:0">Let’s get to know you.</p></div>
+    <div class="lbl">Language / اللغة</div>
+    <div class="langbtns" id="lgO"><button class="opt" data-lg="en" aria-pressed="${state.lang!=='ar'}">English</button><button class="opt" data-lg="ar" aria-pressed="${state.lang==='ar'}">العربية</button></div>
     <div class="lbl">What’s your name? (English or عربي)</div>
     <input class="field" id="on" dir="auto" maxlength="30" placeholder="Your name" value="${esc(state.name)}" style="font-size:24px;font-weight:700;text-align:center">
     <div class="lbl">Are you a boy or a girl?</div>
@@ -697,14 +877,18 @@ function onboarding(){
       <button class="gbtn" data-g="boy" aria-pressed="${g==='boy'}"><span class="ms">${miniBuddy('bolt',50)}${miniBuddy('kicko',50)}</span>I’m a boy</button>
       <button class="gbtn" data-g="girl" aria-pressed="${g==='girl'}"><span class="ms">${miniBuddy('luna',50)}${miniBuddy('daisy',50)}</span>I’m a girl</button>
     </div>
-    <button class="btn main" id="next" style="width:100%;margin-top:16px;background:#7C6CF2;border-color:#7C6CF2;box-shadow:0 5px 0 #5B4BD0">Next ➜</button>`,
+    <button class="btn main" id="next" style="width:100%;margin-top:16px;background:#7C6CF2;border-color:#7C6CF2;box-shadow:0 5px 0 #5B4BD0">Next ➜</button>
+    ${o.add?'<button class="btn" id="cancelAdd" style="width:100%;margin-top:10px">Cancel</button>':'<button class="linkbtn" id="haveCode" style="width:100%;text-align:center">🔑 Parents: I already have an activation code</button>'}`,
   (el,close)=>{
+    el.querySelector('#lgO').onclick=e=>{const b=e.target.closest('[data-lg]');if(!b)return;state.lang=b.dataset.lg;press(el.querySelector('#lgO'),b);applyLang()};
+    if(o.add)el.querySelector('#cancelAdd').onclick=()=>{close();cancelNewKid(o)};
+    else el.querySelector('#haveCode').onclick=()=>{close();activationSheet('onboard')};
     el.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{g=b.dataset.g;el.querySelectorAll('[data-g]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
     el.querySelector('#next').onclick=()=>{
       const n=el.querySelector('#on').value.trim();
       if(!n){toast('Type your name first 🙂');el.querySelector('#on').focus();return}
       if(!g){toast('Choose boy or girl 🙂');return}
-      state.name=n;state.gender=g;close();
+      state.name=n;state.gender=g;if(!state.lang)state.lang='en';close();
       buddySheet(g,startChoice,true);
     };
   },true);
@@ -755,7 +939,7 @@ function yay(){
 }
 function speak(text){
   if(!state.voice||!('speechSynthesis' in window))return;
-  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.pitch=1.35;u.rate=.95;speechSynthesis.speak(u)}catch(e){}
+  try{speechSynthesis.cancel();const ar=state.lang==='ar';const u=new SpeechSynthesisUtterance(ar?trSpeech(text):text);u.lang=ar?'ar-SA':'en-US';u.pitch=1.35;u.rate=.95;speechSynthesis.speak(u)}catch(e){}
 }
 
 /* ---------- Wake lock ---------- */
@@ -796,8 +980,49 @@ function drawJar(){
   $('#jar').innerHTML=body+(full?`<circle cx="98" cy="20" r="16" fill="#1FBF9F"/><text x="98" y="26" font-size="16" fill="#fff" text-anchor="middle" font-weight="800">×${full}</text>`:'');
   $('#starCount').textContent=tot;$('#lvl').textContent=level(tot);$('#collWord').textContent=TH().word;
 }
+function drawKidBar(){
+  const b=$('#kidBar');if(!b)return;const ids=fam.order.filter(id=>fam.kids[id]);
+  b.hidden=ids.length<2;if(b.hidden){b.innerHTML='';return}
+  b.innerHTML=ids.map(id=>{const k=fam.kids[id],th=THEMES[k.theme]?k.theme:'luna';
+    return `<button class="kidchip" data-kid="${id}" aria-pressed="${id===activeId}">${miniBuddy(th,36)}<span dir="auto" data-nt>${esc(k.name||'…')}</span></button>`}).join('')
+    +`<button class="kidchip add" id="addKid" aria-label="Add a child">＋</button>`;
+}
+function switchKid(id){if(!fam.kids[id]||id===activeId)return;useKid(id);applyTheme();render();hop();speak(`Hi ${nm()}!`)}
+function addChild(){
+  if(!licOK()){activationSheet('multi');return}
+  const prev=activeId,id=newKidId();fam.kids[id]=freshState();fam.order.push(id);useKid(id);
+  document.querySelectorAll('.scrim').forEach(x=>x.remove());
+  onboarding({add:true,prev,id});
+}
+function cancelNewKid(o){delete fam.kids[o.id];delete lastSnaps[o.id];fam.order=fam.order.filter(x=>x!==o.id);activeId=null;lastSnap=null;useKid(o.prev);render()}
+function removeKid(id){
+  const k=fam.kids[id];if(!k)return;
+  fam.delKids[id]=Date.now();delete fam.kids[id];delete lastSnaps[id];fam.order=fam.order.filter(x=>x!==id);
+  if(!fam.order.length){const n=newKidId();fam.kids[n]=freshState();fam.order.push(n)}
+  if(id===activeId){activeId=null;lastSnap=null;useKid(fam.order[0])}
+  save();render();
+}
+function childrenSheet(){
+  const ids=fam.order.filter(id=>fam.kids[id]);let am='all';try{am=localStorage.getItem(ALARM_KEY)||'all'}catch(e){}
+  openSheet(`<h3>Children 👨‍👩‍👧‍👦</h3>
+    <div>${ids.map(id=>{const k=fam.kids[id],th=THEMES[k.theme]?k.theme:'luna';return `<div class="kidrow">${miniBuddy(th,44)}<span class="x"><span dir="auto" data-nt>${esc(k.name||'…')}</span><small>${(k.hw||[]).filter(h=>!h.done).length} homework to do · ${k.stars||0} ${THEMES[th].emoji}</small></span>
+      ${ids.length>1?`<button class="btn red" data-rmkid="${id}" style="flex:0 0 auto;padding:8px 12px;font-size:15px">Remove</button>`:''}</div>`}).join('')}</div>
+    <button class="btn main" id="addc" style="width:100%;margin-top:14px">＋ Add a child</button>
+    ${licOK()?'':'<p class="note">More than one child is part of the full version. Activate first to add a child.</p>'}
+    ${ids.length>1?`<div class="lbl">Reminders on this device</div><div class="opts" id="amO"><button class="opt" data-am="all" aria-pressed="${am==='all'||!fam.kids[am]}">All children</button>${ids.map(id=>`<button class="opt" data-am="${id}" aria-pressed="${am===id}">Only <span dir="auto" data-nt>${esc(fam.kids[id].name||'…')}</span></button>`).join('')}</div>
+      <p class="note">On a shared iPad keep “All children”. On a child’s own iPad choose only that child.</p>`:''}
+    <div class="btns"><button class="btn" id="cancel">Close</button></div>`,
+  (el,close)=>{
+    el.querySelector('#cancel').onclick=close;
+    el.querySelector('#addc').onclick=()=>{close();addChild()};
+    el.querySelectorAll('[data-rmkid]').forEach(b=>b.onclick=()=>{const k=fam.kids[b.dataset.rmkid];
+      if(!confirm(`Remove ${k.name||'this child'} and all their homework from every device? This can’t be undone.`))return;
+      removeKid(b.dataset.rmkid);close();childrenSheet()});
+    const amO=el.querySelector('#amO');if(amO)amO.onclick=e=>{const b=e.target.closest('[data-am]');if(!b)return;try{localStorage.setItem(ALARM_KEY,b.dataset.am)}catch(err){}press(amO,b)};
+  });
+}
 function header(){
-  applyTheme();
+  applyTheme();applyLang();
   const h=new Date().getHours();
   const g=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
   $('#hi').textContent=state.name?`${g}, ${state.name}!`:`${g}!`;
@@ -821,7 +1046,7 @@ function hwCard(h){
     <div>
       <div class="sub" dir="auto">${esc(L.title)}</div>
       <div class="chips" style="margin:3px 0 1px"><span class="chip type ${typ(h.type).exam?'exam':''}">${typ(h.type).emoji} ${typ(h.type).name}</span>${L.subject?`<span class="chip" dir="auto">${esc(L.subject)}</span>`:''}</div>
-      <div class="txt" dir="auto">${esc(h.text)}</div>
+      <div class="txt" dir="auto" data-nt>${esc(h.text)}</div>
       <div class="chips">
         ${h.done?`<span class="chip">Done ${relDay(key(h.doneAt))}</span>`
           :`<span class="chip ${late?'late':isToday?'today':''}">${late?'Late! ':''}Needed ${relDay(h.due)}</span>
@@ -878,7 +1103,7 @@ function vDone(){
     (done.length?`<div class="list">${done.map(hwCard).join('')}</div>`:emptyBox('⭐','Finish a homework to earn your first star!'));
 }
 function render(){
-  header();
+  header();drawKidBar();
   document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.v===view));
   $('#view').innerHTML={today:vToday,schedule:vSchedule,upcoming:vUpcoming,done:vDone,rewards:vRewards}[view]();
 }
@@ -910,7 +1135,7 @@ function vRewards(){
     <div style="height:18px"></div><button class="btn" id="parentBtn" style="width:100%">👨‍👩‍👧 Parents: manage rewards 🔒</button>`;
 }
 function pinGate(then){
-  const setting=!state.pin;
+  const setting=!fam.pin;
   openSheet(`<h3>${setting?'Create a parent PIN 🔒':'Parents only 🔒'}</h3>
     <p class="note" style="font-size:16px">${setting?'Choose 4 digits. Only parents can add rewards or mark them as given.':'Enter your 4-digit PIN.'}</p>
     <input class="field pinput" id="p1" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••">
@@ -924,8 +1149,8 @@ function pinGate(then){
       if(setting){const b=el.querySelector('#p2').value.trim();
         if(!/^\d{4}$/.test(a)){toast('The PIN needs 4 digits');return}
         if(a!==b){toast('The two PINs don’t match');return}
-        state.pin=a;save();close();then();
-      }else{if(a===state.pin){close();then()}else{toast('Wrong PIN');el.querySelector('#p1').value=''}}
+        fam.pin=a;save();close();then();
+      }else{if(a===fam.pin){close();then()}else{toast('Wrong PIN');el.querySelector('#p1').value=''}}
     };
   });
 }
@@ -948,7 +1173,7 @@ function parentPanel(){
     el.querySelectorAll('[data-give]').forEach(b=>b.onclick=()=>{const r=state.rewards.find(x=>x.id===b.dataset.give);r.given=true;r.givenAt=Date.now();save();close();render();celebrate();parentPanel()});
     el.querySelectorAll('[data-delr]').forEach(b=>b.onclick=()=>{state.rewards=state.rewards.filter(x=>x.id!==b.dataset.delr);save();close();render();parentPanel()});
     el.querySelector('#cancel').onclick=close;
-    el.querySelector('#pin').onclick=()=>{state.pin=null;save();close();pinGate(parentPanel)};
+    el.querySelector('#pin').onclick=()=>{fam.pin=null;save();close();pinGate(parentPanel)};
     el.querySelector('#add').onclick=()=>{
       const t=el.querySelector('#rt').value.trim();if(!t){toast('Write the reward name');return}
       state.rewards=state.rewards||[];
@@ -1060,7 +1285,7 @@ function hwSheet(opts={}){
       let days=[];for(let d=fromKey(todayK());key(d)<=due;d=addDays(d,1))days.push(key(d));
       if(days.length>8)days=[days[0],days[1],...days.slice(-6)];
       if(!days.includes(remDay))remDay=defaultRemDay(due);
-      remO.innerHTML=days.map(k=>`<button class="opt" data-r="${k}" aria-pressed="${k===remDay}">${relDay(k)}<small>${fromKey(k).toLocaleDateString('en-US',{weekday:'long'})}</small></button>`).join('');
+      remO.innerHTML=days.map(k=>`<button class="opt" data-r="${k}" aria-pressed="${k===remDay}">${relDay(k)}<small>${fromKey(k).toLocaleDateString(LOC(),{weekday:'long'})}</small></button>`).join('');
       remTxt();
     };
     const remTxt=()=>{const r=remindTs(remDay,el.querySelector('#tm').value||'16:00');el.querySelector('#remTxt').textContent=`⏰ I’ll remind you ${(d=>['Today','Tomorrow'].includes(d)?d.toLowerCase():'on '+d)(relDay(key(r)))} at ${fmtTime(r)}`+(r-Date.now()<3*6e4&&remDay===todayK()?' (that time already passed, so in 2 minutes)':'')};
@@ -1183,12 +1408,14 @@ function cellSheet(d,p){
 function settingsSheet(){
   openSheet(`<h3>Settings ⚙️</h3>
     <div class="lbl">Name</div><input class="field" id="nm" dir="auto" value="${esc(state.name)}">
+    <div class="lbl">Language / اللغة</div><div class="langbtns" id="lgS"><button class="opt" data-lg="en" aria-pressed="${state.lang!=='ar'}">English</button><button class="opt" data-lg="ar" aria-pressed="${state.lang==='ar'}">العربية</button></div>
     <div class="lbl">My buddy</div><button class="btn" id="buddy" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px">${miniBuddy(themeId(),40)} Change my buddy</button>
     <div class="lbl">Buddy’s name</div><input class="field" id="pn" dir="auto" value="${esc(petName())}">
     <div class="lbl">Subjects</div><button class="btn" id="subs" style="width:100%">📚 My subjects: edit or delete</button>
     <div class="lbl">Classes per day</div><div class="opts" id="pO">${[5,6,7,8,9].map(n=>`<button class="opt" data-n="${n}" aria-pressed="${n===state.periods}">${n}</button>`).join('')}</div>
     <div class="lbl">Reminder sound</div><div class="opts" id="sO">${Object.entries(TUNES).map(([k,t])=>`<button class="opt" data-t="${k}" aria-pressed="${k===state.sound}">${t.name}</button>`).join('')}</div>
     <div class="lbl">Talking reminder</div><div class="opts" id="vO"><button class="opt" data-v="1" aria-pressed="${state.voice}">🗣️ On</button><button class="opt" data-v="0" aria-pressed="${!state.voice}">🔇 Off</button></div>
+    <div class="lbl">Children</div><button class="btn" id="kids" style="width:100%">👨‍👩‍👧‍👦 Children: add or remove 🔒</button>
     <div class="lbl">Account</div><button class="btn" id="acct" style="width:100%">${licOK()?'🔑 Activated ✓ · Account & sync 🔒':'🔑 Activate Homework Buddy'}</button>
     <div class="btns"><button class="btn pink" id="test">Test the alarm 🔔</button><button class="btn main" id="ok">Done</button></div>
     <p class="note">For alarms to ring, keep this page open on the iPad with the volume up and the side switch off silent. Tap “Keep awake” so the screen doesn’t turn off.</p>`,
@@ -1197,6 +1424,8 @@ function settingsSheet(){
     el.querySelector('#sO').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;state.sound=b.dataset.t;press(el.querySelector('#sO'),b);playTune(state.sound);save()};
     el.querySelector('#vO').onclick=e=>{const b=e.target.closest('[data-v]');if(!b)return;state.voice=b.dataset.v==='1';press(el.querySelector('#vO'),b);save()};
     el.querySelector('#acct').onclick=()=>{close();licOK()?pinGate(accountSheet):activationSheet(lic&&lic.status==='invalid'?'invalid':'manual')};
+    el.querySelector('#lgS').onclick=e=>{const b=e.target.closest('[data-lg]');if(!b)return;state.lang=b.dataset.lg;press(el.querySelector('#lgS'),b);save();applyLang();render()};
+    el.querySelector('#kids').onclick=()=>{close();pinGate(childrenSheet)};
     el.querySelector('#buddy').onclick=()=>{close();buddySheet('')};
     el.querySelector('#subs').onclick=()=>{close();subjectsSheet()};
     el.querySelector('#test').onclick=()=>{playTune(state.sound,2);speak(`${nm()}! It's homework time!`)};
@@ -1241,11 +1470,15 @@ function hop(){const u=$('#uniHead');u.classList.remove('happy');void u.offsetWi
 function toast(m){document.querySelectorAll('.toast').forEach(t=>t.remove());const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
 
 /* ---------- Alarms ---------- */
+function alarmKidIds(){let m='all';try{m=localStorage.getItem(ALARM_KEY)||'all'}catch(e){}
+  return m!=='all'&&fam.kids[m]?[m]:fam.order.filter(id=>fam.kids[id])}
 function checkAlarms(){
   if(alerting||$('#splash'))return;
-  const now=Date.now();
-  const h=state.hw.filter(x=>!x.done&&x.nextAlert&&x.nextAlert<=now).sort((a,b)=>a.nextAlert-b.nextAlert)[0];
-  if(h)showAlarm(h);
+  const now=Date.now();let best=null,bk=null;
+  alarmKidIds().forEach(id=>(fam.kids[id].hw||[]).forEach(x=>{if(!x.done&&x.nextAlert&&x.nextAlert<=now&&(!best||x.nextAlert<best.nextAlert)){best=x;bk=id}}));
+  if(!best)return;
+  if(bk!==activeId){document.querySelectorAll('.scrim').forEach(x=>x.remove());useKid(bk);render()}
+  showAlarm(best);
 }
 function showAlarm(h){
   alerting=h.id;h.nextAlert=Date.now()+10*6e4;save();
@@ -1254,7 +1487,7 @@ function showAlarm(h){
   a.innerHTML=`<div class="box"><span class="bigUni">${MASCOT()}</span>
     <h3>${esc(nm())}! It’s ${T.exam?'study':h.type==='other'?'task':'homework'} time! ⏰</h3>
     <p><b dir="auto">${L.emoji} ${h.type==='other'?esc(L.title)+(L.subject?' · '+esc(L.subject):''):esc(L.title)+' '+T.name}</b></p>
-    <p dir="auto">${esc(h.text)}</p>
+    <p dir="auto" data-nt>${esc(h.text)}</p>
     <p style="color:var(--soft);font-size:17px">Needed ${relDay(h.due).toLowerCase()}</p>
     <div class="btns">
       <button class="btn green" id="aDone">I finished it! ⭐</button>
@@ -1281,6 +1514,8 @@ document.addEventListener('click',e=>{
   if(t.id==='addBtn')return hwSheet();
   if(t.id==='setBtn')return settingsSheet();
   if(t.id==='wakeBtn')return toggleWake();
+  if(t.dataset.kid)return switchKid(t.dataset.kid);
+  if(t.id==='addKid')return pinGate(addChild);
   if(t.id==='parentBtn')return pinGate(parentPanel);
   if(t.id==='trialBtn')return activationSheet(lic&&lic.status==='invalid'?'invalid':trialLeft()?'manual':'limit');
   if(t.id==='syncPill'){syncNow().then(()=>toast(syncErr?'⚠️ '+syncErr:'Synced ✓'));return}
@@ -1293,11 +1528,11 @@ document.addEventListener('click',e=>{
   if(t.dataset.cell){const[d,p]=t.dataset.cell.split('-').map(Number);return cellSheet(d,p)}
 });
 document.addEventListener('pointerdown',unlockAudio,{passive:true});
-$('#startBtn').onclick=()=>{unlockAudio();playTune('chime');$('#splash').remove();if(!state.name&&!licOK()){onboarding();return}speak(`Hi ${nm()}! Let's check your homework.`);setTimeout(checkAlarms,1500)};
+$('#startBtn').onclick=()=>{unlockAudio();playTune('chime');$('#splash').remove();if(!state.name){onboarding();return}speak(`Hi ${nm()}! Let's check your homework.`);setTimeout(checkAlarms,1500)};
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){render();checkAlarms();syncNow();if($('#wakeBtn').classList.contains('on')&&!wakeLock)toggleWake()}});
 
 /* ---------- Start ---------- */
-loadLocal();prune();snap();render();initCloud();
+loadLocal();prune();render();initCloud();
 setInterval(checkAlarms,10000);
 setInterval(header,60000);
 </script>
