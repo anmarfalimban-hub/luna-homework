@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Luna Homework Buddy</title>
+<title>Homework Buddy</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Luna">
+<meta name="apple-mobile-web-app-title" content="Homework Buddy">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#8B6CFF">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <style>
 :root{
   --bg:#F1ECFF; --bg2:#FFE9F4; --card:#FFFFFF; --ink:#2E1A47; --soft:#6E5A8A;
-  --grape:#7B5CFF; --bubble:#FF5FA8; --mint:#1FBF9F; --sun:#FFC23C; --line:#E4DBFA;
+  --grape:#7B5CFF; --bubble:#FF5FA8; --grape-d:#5B3FD6; --bubble-d:#D63E86; --addtext:#fff; --ring:linear-gradient(160deg,#B9A6FF,#FFB3D6); --alarm2:#3B1F8F; --mint:#1FBF9F; --sun:#FFC23C; --line:#E4DBFA;
   --danger:#FF5C5C; --shadow:0 6px 0 rgba(46,26,71,.08);
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
@@ -70,15 +70,15 @@ input,textarea,select{font:inherit;color:var(--ink)}
 .tab{flex:1;padding:12px 6px;border-radius:20px;font-weight:700;font-size:18px;display:flex;gap:8px;align-items:center;justify-content:center;color:var(--soft)}
 .tab .ic{font-size:22px}
 .tab[aria-selected="true"]{background:var(--grape);color:#fff}
-.tab .badge{background:var(--bubble);color:#fff;border-radius:99px;font-size:13px;min-width:22px;padding:0 6px;line-height:22px}
+.tab .badge{background:var(--bubble);color:var(--addtext);border-radius:99px;font-size:13px;min-width:22px;padding:0 6px;line-height:22px}
 
 h2{font-size:26px;margin:26px 0 12px;font-weight:800}
 h2 small{font-size:16px;color:var(--soft);font-weight:500;margin-left:8px}
 
 /* Big add button */
-.addbig{width:100%;display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:28px;background:var(--bubble);color:#fff;font-size:24px;font-weight:800;box-shadow:0 7px 0 #D63E86;transition:transform .08s}
-.addbig:active{transform:translateY(4px);box-shadow:0 3px 0 #D63E86}
-.addbig .plus{width:52px;height:52px;border-radius:50%;background:#fff;color:var(--bubble);display:grid;place-items:center;font-size:36px;line-height:1}
+.addbig{width:100%;display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:28px;background:var(--bubble);color:var(--addtext);font-size:24px;font-weight:800;box-shadow:0 7px 0 var(--bubble-d);transition:transform .08s}
+.addbig:active{transform:translateY(4px);box-shadow:0 3px 0 var(--bubble-d)}
+.addbig .plus{width:52px;height:52px;border-radius:50%;background:#fff;color:var(--bubble-d);display:grid;place-items:center;font-size:36px;line-height:1}
 
 /* Class strip */
 .strip{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none}
@@ -144,8 +144,8 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .btns{display:flex;gap:10px;margin-top:22px}
 .btn{flex:1;padding:14px;border-radius:20px;font-weight:800;font-size:19px;background:var(--bg);border:3px solid var(--line)}
-.btn.main{background:var(--grape);color:#fff;border-color:var(--grape);box-shadow:0 5px 0 #5B3FD6}
-.btn.pink{background:var(--bubble);color:#fff;border-color:var(--bubble);box-shadow:0 5px 0 #D63E86}
+.btn.main{background:var(--grape);color:#fff;border-color:var(--grape);box-shadow:0 5px 0 var(--grape-d)}
+.btn.pink{background:var(--bubble);color:var(--addtext);border-color:var(--bubble);box-shadow:0 5px 0 var(--bubble-d)}
 .btn.green{background:var(--mint);color:#fff;border-color:var(--mint);box-shadow:0 5px 0 #14937A}
 .btn.red{color:var(--danger);border-color:var(--danger)}
 .note{font-size:14px;color:var(--soft);margin-top:10px}
@@ -156,7 +156,7 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 .emojis button[aria-pressed="true"]{border-color:var(--grape);background:var(--bg)}
 
 /* Alarm */
-.alarm{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:20px;background:radial-gradient(circle,var(--grape),#3B1F8F);animation:fade .2s}
+.alarm{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:20px;background:radial-gradient(circle,var(--grape),var(--alarm2));animation:fade .2s}
 .alarm .box{background:var(--card);border-radius:40px;padding:30px 26px;max-width:520px;width:100%;text-align:center;box-shadow:0 12px 0 rgba(0,0,0,.2)}
 .alarm .ring{font-size:92px;display:inline-block;animation:wiggle .5s ease-in-out infinite}
 .alarm h3{font-size:34px;margin:6px 0 4px;line-height:1.1}
@@ -172,15 +172,15 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--card);padding:10px 20px;border-radius:99px;font-weight:700;z-index:60;animation:up .2s}
 /* Unicorn buddy */
 .top{grid-template-columns:auto 1fr auto}
-.uni{width:118px;height:118px;flex:0 0 auto;border-radius:50%;background:linear-gradient(160deg,#B9A6FF,#FFB3D6);border:4px solid var(--card);box-shadow:var(--shadow);overflow:hidden;padding:6px 4px 0}
+.uni{width:118px;height:118px;flex:0 0 auto;border-radius:50%;background:var(--ring);border:4px solid var(--card);box-shadow:var(--shadow);overflow:hidden;padding:6px 4px 0}
 .uni svg{width:100%;height:100%;display:block;transform-origin:50% 90%}
 .uni.happy svg{animation:hop .5s ease 2}
 .bubble{position:relative;display:inline-block;margin-top:10px;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:8px 16px;font-size:18px;font-weight:600;color:var(--ink);box-shadow:var(--shadow)}
 .bubble::before{content:"";position:absolute;left:-12px;top:14px;border:8px solid transparent;border-right:12px solid var(--line)}
-.bubble b{color:var(--bubble)}
+.bubble b{color:var(--grape)}
 .bigUni{width:150px;height:150px;margin:0 auto;display:block}
 .bigUni svg{width:100%;height:100%}
-.alarm .bigUni,.empty-state .bigUni{border-radius:50%;background:linear-gradient(160deg,#B9A6FF,#FFB3D6);overflow:hidden;padding:10px 6px 0}
+.alarm .bigUni,.empty-state .bigUni{border-radius:50%;background:var(--ring);overflow:hidden;padding:10px 6px 0}
 .alarm .bigUni svg{animation:wiggle .5s ease-in-out infinite;transform-origin:50% 90%}
 .splash .bigUni{width:210px;height:210px;animation:pulse 1.6s ease-in-out infinite;filter:drop-shadow(0 10px 0 rgba(0,0,0,.15))}
 /* Rewards */
@@ -214,6 +214,33 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 .mini{padding:6px 12px;border-radius:14px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:15px}
 .mini.red{color:var(--danger);border-color:var(--danger)}
 .linkbtn{margin-top:10px;font-weight:700;color:var(--grape);font-size:16px;padding:4px 0}
+.splash{background:#FFFCF5 !important;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 37px,#DCE3FF 37px,#DCE3FF 39px) !important;color:#22304F !important;display:flex !important;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:hidden}
+.splash::before{content:"";position:absolute;left:7%;top:0;bottom:0;width:3px;background:#F9A8BE}
+.splash .blob{position:absolute;border-radius:50%}
+.splash .deco{position:absolute;width:62px;height:62px;border-radius:20px;border:4px solid #fff;box-shadow:0 6px 0 rgba(16,35,63,.08);display:grid;place-items:center;font-size:30px}
+.splash .nbw{position:relative;width:min(320px,62vw);aspect-ratio:1;border-radius:50%;background:#fff;border:6px dashed #F9B8C9;display:grid;place-items:center;animation:pulse 2.4s ease-in-out infinite}
+.splash .nbw svg{width:86%;height:auto}
+.splash h1{position:relative;margin:4px 0 0;font-size:clamp(42px,9vw,64px);line-height:1;color:#22304F}
+.splash h1 span{color:#F2668B}
+.splash p{position:relative;margin:0;font-size:clamp(18px,3.4vw,23px);font-weight:600;color:#5B6485}
+.splash .schips{position:relative;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.splash .schips span{background:#fff;border:3px solid #DCE3FF;border-radius:99px;padding:5px 14px;font-weight:700;font-size:16px;color:#22304F}
+#startBtn{position:relative;margin-top:10px;display:inline-flex;align-items:center;gap:14px;border-radius:99px;padding:16px 40px 16px 18px;background:#7C6CF2;color:#fff;font-size:28px;font-weight:800;box-shadow:0 8px 0 #5B4BD0}
+#startBtn:active{transform:translateY(4px);box-shadow:0 4px 0 #5B4BD0}
+#startBtn .pl{width:48px;height:48px;border-radius:50%;background:#FFD43B;display:grid;place-items:center;color:#22304F;font-size:22px}
+.buddies{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bcard{border:4px solid var(--line);border-radius:26px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--card)}
+.bcard[aria-pressed="true"]{border-color:var(--c);background:var(--cb)}
+.bcard .m{width:112px;height:112px;border-radius:50%;overflow:hidden;background:var(--r);padding:8px 5px 0}
+.bcard .m svg{width:100%;height:100%;display:block}
+.bcard b{font-size:22px}
+.bcard .sw{display:flex;gap:5px}.bcard .sw i{width:20px;height:20px;border-radius:7px;display:block}
+.bcard small{font-weight:700;color:var(--soft)}
+.gbtn{flex:1;border:4px solid var(--line);border-radius:24px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--card);font-size:20px;font-weight:800}
+.gbtn[aria-pressed="true"]{border-color:#7C6CF2;background:#F1EFFF}
+.gbtn .ms{display:flex;gap:4px}
+.gbtn .ms span{width:50px;height:50px;border-radius:50%;overflow:hidden;padding:4px 3px 0;border:3px solid #fff}
+.gbtn .ms svg{width:100%;height:100%;display:block}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:70}
 
 @keyframes fade{from{opacity:0}}
@@ -231,15 +258,15 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 <body>
 <div class="wrap">
   <header class="top">
-    <button class="uni" id="uniHead" aria-label="Talk to the unicorn"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g id="mane" stroke="#2E1A47" stroke-width="4"> <circle cx="84" cy="62" r="17" fill="#FF5FA8"/> <circle cx="64" cy="78" r="18" fill="#A66CFF"/> <circle cx="52" cy="102" r="18" fill="#1FBF9F"/> <circle cx="48" cy="128" r="17" fill="#FFC23C"/> <circle cx="50" cy="154" r="17" fill="#FF5FA8"/> <circle cx="56" cy="180" r="16" fill="#A66CFF"/> <circle cx="98" cy="58" r="12" fill="#A66CFF"/> </g> <g fill="#2E1A47" stroke="#2E1A47" stroke-width="9" stroke-linejoin="round"> <path d="M66 150 Q60 182 70 204 L140 204 Q128 176 124 150 Z"/> <ellipse cx="96" cy="112" rx="50" ry="48"/> <ellipse cx="130" cy="136" rx="34" ry="27"/> <path d="M76 74 L82 40 L100 68 Z"/> </g> <g fill="#FFFFFF"> <path d="M66 150 Q60 182 70 204 L140 204 Q128 176 124 150 Z"/> <ellipse cx="96" cy="112" rx="50" ry="48"/> <ellipse cx="130" cy="136" rx="34" ry="27"/> <path d="M76 74 L82 40 L100 68 Z"/> </g> <path d="M82 66 L84 50 L93 64 Z" fill="#FFB3D6"/> <g stroke="#2E1A47" stroke-width="4.5" stroke-linejoin="round"> <path d="M104 70 L136 10 L122 76 Z" fill="#FFC23C"/> </g> <g stroke="#E09A00" stroke-width="3" stroke-linecap="round"> <path d="M109 62 L124 58"/><path d="M113 48 L128 44"/><path d="M118 34 L131 31"/> </g> <g id="front-mane"> <circle cx="92" cy="72" r="13" fill="#FF5FA8" stroke="#2E1A47" stroke-width="4"/> <circle cx="76" cy="84" r="12" fill="#1FBF9F" stroke="#2E1A47" stroke-width="4"/> </g> <path d="M100 104 Q111 116 122 104" fill="none" stroke="#2E1A47" stroke-width="5" stroke-linecap="round"/> <path d="M101 104 L95 99 M106 109 L102 114 M112 110 L111 117" stroke="#2E1A47" stroke-width="3.5" stroke-linecap="round"/> <ellipse cx="116" cy="126" rx="11" ry="7" fill="#FF8FC4" opacity=".75"/> <circle cx="150" cy="130" r="3.5" fill="#2E1A47"/> <path d="M128 150 Q140 160 152 150" fill="none" stroke="#2E1A47" stroke-width="4" stroke-linecap="round"/></svg></button>
+    <button class="uni" id="uniHead" aria-label="Talk to your buddy"></button>
     <div class="hello">
       <h1 id="hi">Hi!</h1>
-      <div class="bubble"><b id="petName">Luna</b>: <span id="sub">Let's check your homework.</span></div>
+      <div class="bubble"><b id="petName">Buddy</b>: <span id="sub">Let's check your homework.</span></div>
     </div>
     <div>
       <div class="jarbox" aria-label="Star jar">
         <svg viewBox="0 0 120 150" id="jar" aria-hidden="true"></svg>
-        <div class="jarinfo"><b id="starCount">0</b><span>stars earned</span><br><span class="lvl" id="lvl">Seedling</span></div>
+        <div class="jarinfo"><b id="starCount">0</b><span id="collWord">stars earned</span><br><span class="lvl" id="lvl">Seedling</span></div>
       </div>
       <div class="tools">
         <button class="pill" id="syncPill" hidden title="Family sync">☁️</button>
@@ -261,11 +288,46 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 </div>
 
 <div class="splash" id="splash">
-  <button id="startBtn" style="color:#fff">
-    <span class="bigUni"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g id="mane" stroke="#2E1A47" stroke-width="4"> <circle cx="84" cy="62" r="17" fill="#FF5FA8"/> <circle cx="64" cy="78" r="18" fill="#A66CFF"/> <circle cx="52" cy="102" r="18" fill="#1FBF9F"/> <circle cx="48" cy="128" r="17" fill="#FFC23C"/> <circle cx="50" cy="154" r="17" fill="#FF5FA8"/> <circle cx="56" cy="180" r="16" fill="#A66CFF"/> <circle cx="98" cy="58" r="12" fill="#A66CFF"/> </g> <g fill="#2E1A47" stroke="#2E1A47" stroke-width="9" stroke-linejoin="round"> <path d="M66 150 Q60 182 70 204 L140 204 Q128 176 124 150 Z"/> <ellipse cx="96" cy="112" rx="50" ry="48"/> <ellipse cx="130" cy="136" rx="34" ry="27"/> <path d="M76 74 L82 40 L100 68 Z"/> </g> <g fill="#FFFFFF"> <path d="M66 150 Q60 182 70 204 L140 204 Q128 176 124 150 Z"/> <ellipse cx="96" cy="112" rx="50" ry="48"/> <ellipse cx="130" cy="136" rx="34" ry="27"/> <path d="M76 74 L82 40 L100 68 Z"/> </g> <path d="M82 66 L84 50 L93 64 Z" fill="#FFB3D6"/> <g stroke="#2E1A47" stroke-width="4.5" stroke-linejoin="round"> <path d="M104 70 L136 10 L122 76 Z" fill="#FFC23C"/> </g> <g stroke="#E09A00" stroke-width="3" stroke-linecap="round"> <path d="M109 62 L124 58"/><path d="M113 48 L128 44"/><path d="M118 34 L131 31"/> </g> <g id="front-mane"> <circle cx="92" cy="72" r="13" fill="#FF5FA8" stroke="#2E1A47" stroke-width="4"/> <circle cx="76" cy="84" r="12" fill="#1FBF9F" stroke="#2E1A47" stroke-width="4"/> </g> <path d="M100 104 Q111 116 122 104" fill="none" stroke="#2E1A47" stroke-width="5" stroke-linecap="round"/> <path d="M101 104 L95 99 M106 109 L102 114 M112 110 L111 117" stroke="#2E1A47" stroke-width="3.5" stroke-linecap="round"/> <ellipse cx="116" cy="126" rx="11" ry="7" fill="#FF8FC4" opacity=".75"/> <circle cx="150" cy="130" r="3.5" fill="#2E1A47"/> <path d="M128 150 Q140 160 152 150" fill="none" stroke="#2E1A47" stroke-width="4" stroke-linecap="round"/></svg></span>
-    <h1 id="splashName">Hi! I’m Luna</h1>
-    <p>Tap the unicorn to start</p>
-  </button>
+  <div class="blob" style="left:-70px;bottom:-90px;width:280px;height:280px;background:#FFE1EA"></div>
+  <div class="blob" style="right:-70px;bottom:70px;width:210px;height:210px;background:#DCF7EE"></div>
+  <div class="deco" style="left:9%;top:6%;background:#FFF3BF;transform:rotate(-10deg)">⭐</div>
+  <div class="deco" style="right:8%;top:9%;background:#E9E6FF;transform:rotate(8deg)">⏰</div>
+  <div class="deco" style="left:6%;top:44%;background:#DCF7EE;transform:rotate(6deg)">✅</div>
+  <div class="deco" style="right:6%;top:40%;background:#FFE1EA;transform:rotate(-8deg)">🔔</div>
+  <div class="nbw"><svg viewBox="0 0 252 262" role="img" aria-label="A smiling notebook holding a pencil"><ellipse cx="116" cy="246" rx="74" ry="9" fill="#10233F" opacity=".12"></ellipse>
+<rect x="84" y="222" width="22" height="18" rx="7" fill="#FF922B" stroke="#10233F" stroke-width="4.5"></rect>
+<rect x="128" y="222" width="22" height="18" rx="7" fill="#FF922B" stroke="#10233F" stroke-width="4.5"></rect>
+<rect x="60" y="44" width="136" height="180" rx="16" fill="#FFFFFF" stroke="#10233F" stroke-width="5"></rect>
+<path d="M186 70 H196 M186 92 H196 M186 114 H196 M186 136 H196" stroke="#A5D8FF" stroke-width="3"></path>
+<path d="M46 150 Q26 136 20 112" fill="none" stroke="#10233F" stroke-width="12" stroke-linecap="round"></path>
+<path d="M46 150 Q26 136 20 112" fill="none" stroke="#FFD43B" stroke-width="6" stroke-linecap="round"></path>
+<circle cx="19" cy="106" r="11" fill="#FFD43B" stroke="#10233F" stroke-width="4.5"></circle>
+<rect x="46" y="38" width="136" height="182" rx="18" fill="#FFD43B" stroke="#10233F" stroke-width="6"></rect>
+<path d="M46 192 H182 V202 Q182 220 164 220 H64 Q46 220 46 202 Z" fill="#FCC419"></path>
+<rect x="46" y="38" width="136" height="182" rx="18" fill="none" stroke="#10233F" stroke-width="6"></rect>
+<rect x="66" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="83" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="100" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="117" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="134" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="151" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="168" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect>
+<rect x="68" y="64" width="92" height="30" rx="9" fill="#FFFFFF" stroke="#10233F" stroke-width="4"></rect>
+<text x="114" y="87" text-anchor="middle" font-family="Baloo Bhaijaan 2, Trebuchet MS, sans-serif" font-size="20" font-weight="800" fill="#0B7A75">ABC</text>
+<ellipse cx="94" cy="130" rx="11" ry="14" fill="#10233F"></ellipse><ellipse cx="136" cy="130" rx="11" ry="14" fill="#10233F"></ellipse>
+<circle cx="98" cy="124" r="4" fill="#FFFFFF"></circle><circle cx="140" cy="124" r="4" fill="#FFFFFF"></circle>
+<path d="M86 110 Q94 104 102 108 M128 108 Q136 104 144 110" fill="none" stroke="#10233F" stroke-width="4" stroke-linecap="round"></path>
+<path d="M94 156 Q115 182 136 156 Z" fill="#E8590C" stroke="#10233F" stroke-width="4.5" stroke-linejoin="round"></path>
+<path d="M104 166 Q115 176 126 166 Q115 162 104 166 Z" fill="#FFA8A8"></path>
+<ellipse cx="74" cy="152" rx="10" ry="6" fill="#FF8787" opacity=".6"></ellipse><ellipse cx="156" cy="152" rx="10" ry="6" fill="#FF8787" opacity=".6"></ellipse>
+<g transform="rotate(24 214 140)">
+<rect x="206" y="72" width="18" height="16" fill="#FFA8BA" stroke="#10233F" stroke-width="4"></rect>
+<rect x="206" y="86" width="18" height="10" fill="#ADB5BD" stroke="#10233F" stroke-width="4"></rect>
+<rect x="206" y="94" width="18" height="66" fill="#4DABF7" stroke="#10233F" stroke-width="4"></rect>
+<path d="M212 96 V158" stroke="#A5D8FF" stroke-width="3"></path>
+<polygon points="206 160 224 160 215 182" fill="#FFE8CC" stroke="#10233F" stroke-width="4" stroke-linejoin="round"></polygon>
+<polygon points="212 174 218 174 215 182" fill="#10233F"></polygon></g>
+<path d="M182 164 Q196 158 204 146" fill="none" stroke="#10233F" stroke-width="12" stroke-linecap="round"></path>
+<path d="M182 164 Q196 158 204 146" fill="none" stroke="#FFD43B" stroke-width="6" stroke-linecap="round"></path>
+<circle cx="206" cy="144" r="11" fill="#FFD43B" stroke="#10233F" stroke-width="4.5"></circle></svg></div>
+  <h1>Homework <span>Buddy</span></h1>
+  <p>Your friendly homework reminder</p>
+  <div class="schips"><span>📅 Schedule</span><span>🔔 Reminders</span><span>🎁 Rewards</span></div>
+  <button id="startBtn"><span class="pl">▶</span>Tap to start</button>
 </div>
 <canvas id="confetti"></canvas>
 
@@ -293,6 +355,105 @@ function hwLook(h){
 }
 const nm=()=>state.name||'friend';
 const typ=id=>TYPES.find(t=>t.id===id)||TYPES[0];
+const THEMES={"luna": {"pet": "Luna", "gender": "girl", "word": "stars earned", "emoji": "⭐", "levels": ["Seedling 🌱", "Bright Star ✨", "Super Star 🌟", "Homework Hero 🦸‍♀️", "Galaxy Queen 👑"], "vars": {"--bg": "#F1ECFF", "--bg2": "#FFE9F4", "--line": "#E4DBFA", "--ink": "#2E1A47", "--soft": "#6E5A8A", "--grape": "#7B5CFF", "--grape-d": "#5B3FD6", "--bubble": "#FF5FA8", "--bubble-d": "#D63E86", "--addtext": "#fff", "--ring": "linear-gradient(160deg,#B9A6FF,#FFB3D6)", "--alarm2": "#3B1F8F"}, "meta": "#8B6CFF", "sw": ["#7B5CFF", "#FF5FA8", "#F1ECFF"]}, "daisy": {"pet": "Daisy", "gender": "girl", "word": "flowers grown", "emoji": "🌸", "levels": ["Little Seed 🌱", "Sprout 🌿", "Blossom 🌸", "Bouquet 💐", "Garden Queen 👑"], "vars": {"--bg": "#FFF3EE", "--bg2": "#FFE3EA", "--line": "#F7DCD2", "--ink": "#3B1F2B", "--soft": "#6B4A57", "--grape": "#C2255C", "--grape-d": "#961A46", "--bubble": "#2F9E44", "--bubble-d": "#237A35", "--addtext": "#fff", "--ring": "linear-gradient(160deg,#FFE3EA,#FFF0C2)", "--alarm2": "#7A1238"}, "meta": "#C2255C", "sw": ["#C2255C", "#2F9E44", "#FFF3EE"]}, "bolt": {"pet": "Bolt", "gender": "boy", "word": "power bolts", "emoji": "⚡", "levels": ["Rookie Bot 🔩", "Turbo Bot ⚙️", "Mega Bot 🤖", "Robo Hero 🦾", "Galaxy Commander 🚀"], "vars": {"--bg": "#EEF1FF", "--bg2": "#DDE4FF", "--line": "#DCE2F7", "--ink": "#16213E", "--soft": "#4D587A", "--grape": "#3B5BDB", "--grape-d": "#2B45AE", "--bubble": "#0B8FA6", "--bubble-d": "#076B7C", "--addtext": "#fff", "--ring": "linear-gradient(160deg,#C5D0FF,#B8F1FA)", "--alarm2": "#1B2A6B"}, "meta": "#3B5BDB", "sw": ["#3B5BDB", "#0B8FA6", "#EEF1FF"]}, "kicko": {"pet": "Kicko", "gender": "boy", "word": "goals scored", "emoji": "⚽", "levels": ["Rookie ⚽", "Striker 🥅", "Playmaker 🎯", "Captain 🎖️", "Legend 🏆"], "vars": {"--bg": "#ECF8EF", "--bg2": "#D3F9E0", "--line": "#D3EBDA", "--ink": "#10281A", "--soft": "#46614F", "--grape": "#237A36", "--grape-d": "#1A5C29", "--bubble": "#FCC419", "--bubble-d": "#B98500", "--addtext": "#10281A", "--ring": "linear-gradient(160deg,#D3F9E0,#FFF3BF)", "--alarm2": "#0F4A1E"}, "meta": "#237A36", "sw": ["#237A36", "#FCC419", "#ECF8EF"]}};
+const THEME_SVG={daisy:`<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M100 150 Q96 176 100 204" stroke="#2F9E44" stroke-width="10" fill="none" stroke-linecap="round"></path>
+<path d="M100 178 Q70 160 56 176 Q76 194 100 184 Z" fill="#51CF66" stroke="#10233F" stroke-width="4" stroke-linejoin="round"></path>
+<path d="M102 170 Q132 150 148 166 Q126 186 102 176 Z" fill="#51CF66" stroke="#10233F" stroke-width="4" stroke-linejoin="round"></path>
+<ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(0 100 88)" fill="#FF8FA3" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(36 100 88)" fill="#FFA8BA" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(72 100 88)" fill="#FF8FA3" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(108 100 88)" fill="#FFA8BA" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(144 100 88)" fill="#FF8FA3" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(180 100 88)" fill="#FFA8BA" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(216 100 88)" fill="#FF8FA3" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(252 100 88)" fill="#FFA8BA" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(288 100 88)" fill="#FF8FA3" stroke="#10233F" stroke-width="4"></ellipse><ellipse cx="100" cy="42" rx="19" ry="30" transform="rotate(324 100 88)" fill="#FFA8BA" stroke="#10233F" stroke-width="4"></ellipse>
+<circle cx="100" cy="88" r="44" fill="#FFD43B" stroke="#10233F" stroke-width="5"></circle>
+<path d="M78 86 Q86 96 94 86" fill="none" stroke="#10233F" stroke-width="4.5" stroke-linecap="round"></path>
+<path d="M106 86 Q114 96 122 86" fill="none" stroke="#10233F" stroke-width="4.5" stroke-linecap="round"></path>
+<path d="M88 104 Q100 116 112 104" fill="none" stroke="#10233F" stroke-width="4.5" stroke-linecap="round"></path>
+<ellipse cx="74" cy="100" rx="7" ry="4.5" fill="#FF8FA3" opacity=".85"></ellipse><ellipse cx="126" cy="100" rx="7" ry="4.5" fill="#FF8FA3" opacity=".85"></ellipse></svg>`,bolt:`<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="66" y="168" width="68" height="36" rx="12" fill="#3D5BD9" stroke="#10233F" stroke-width="5"></rect>
+<line x1="100" y1="42" x2="100" y2="20" stroke="#10233F" stroke-width="5" stroke-linecap="round"></line>
+<circle cx="100" cy="16" r="9" fill="#FF7A1A" stroke="#10233F" stroke-width="4"></circle>
+<rect x="22" y="84" width="22" height="48" rx="8" fill="#FFC23C" stroke="#10233F" stroke-width="4.5"></rect>
+<rect x="156" y="84" width="22" height="48" rx="8" fill="#FFC23C" stroke="#10233F" stroke-width="4.5"></rect>
+<rect x="38" y="40" width="124" height="134" rx="36" fill="#5B7CFA" stroke="#10233F" stroke-width="5"></rect>
+<polygon points="102 44 92 58 100 58 96 68 108 54 100 54" fill="#FFC23C" stroke="#10233F" stroke-width="2.5" stroke-linejoin="round"></polygon>
+<rect x="54" y="72" width="92" height="76" rx="24" fill="#16213E" stroke="#10233F" stroke-width="4"></rect>
+<path d="M70 106 Q80 92 90 106" fill="none" stroke="#3CF0FF" stroke-width="6" stroke-linecap="round"></path>
+<path d="M110 106 Q120 92 130 106" fill="none" stroke="#3CF0FF" stroke-width="6" stroke-linecap="round"></path>
+<path d="M84 124 Q100 136 116 124" fill="none" stroke="#3CF0FF" stroke-width="5" stroke-linecap="round"></path>
+<circle cx="66" cy="126" r="5" fill="#FF7AB6" opacity=".85"></circle><circle cx="134" cy="126" r="5" fill="#FF7AB6" opacity=".85"></circle>
+<circle cx="52" cy="160" r="3.5" fill="#C9D4FF"></circle><circle cx="148" cy="160" r="3.5" fill="#C9D4FF"></circle></svg>`,kicko:`<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="100" cy="108" r="78" fill="#FFFFFF" stroke="#10233F" stroke-width="6"></circle>
+<polygon points="100 34 118 46 112 66 88 66 82 46" fill="#10233F"></polygon>
+<polygon points="30 96 44 84 58 96 52 116 34 116" fill="#10233F"></polygon>
+<polygon points="170 96 156 84 142 96 148 116 166 116" fill="#10233F"></polygon>
+<polygon points="62 170 76 160 90 170 86 184 66 184" fill="#10233F"></polygon>
+<polygon points="138 170 124 160 110 170 114 184 134 184" fill="#10233F"></polygon>
+<path d="M28 74 Q100 48 172 74 L170 90 Q100 66 30 90 Z" fill="#12B886" stroke="#10233F" stroke-width="4" stroke-linejoin="round"></path>
+<polygon points="100 62 104 72 114 72 106 78 109 88 100 82 91 88 94 78 86 72 96 72" fill="#FCC419" stroke="#10233F" stroke-width="2"></polygon>
+<ellipse cx="78" cy="112" rx="10" ry="13" fill="#10233F"></ellipse><ellipse cx="122" cy="112" rx="10" ry="13" fill="#10233F"></ellipse>
+<circle cx="81" cy="107" r="3.5" fill="#FFFFFF"></circle><circle cx="125" cy="107" r="3.5" fill="#FFFFFF"></circle>
+<path d="M78 138 Q100 162 122 138 Z" fill="#E03131" stroke="#10233F" stroke-width="4" stroke-linejoin="round"></path>
+<ellipse cx="62" cy="134" rx="8" ry="5" fill="#FF8FA3" opacity=".7"></ellipse><ellipse cx="138" cy="134" rx="8" ry="5" fill="#FF8FA3" opacity=".7"></ellipse></svg>`};
+const NOTEBOOK=`<svg viewBox="0 0 252 262" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="116" cy="246" rx="74" ry="9" fill="#10233F" opacity=".12"></ellipse>
+<rect x="84" y="222" width="22" height="18" rx="7" fill="#FF922B" stroke="#10233F" stroke-width="4.5"></rect>
+<rect x="128" y="222" width="22" height="18" rx="7" fill="#FF922B" stroke="#10233F" stroke-width="4.5"></rect>
+<rect x="60" y="44" width="136" height="180" rx="16" fill="#FFFFFF" stroke="#10233F" stroke-width="5"></rect>
+<path d="M186 70 H196 M186 92 H196 M186 114 H196 M186 136 H196" stroke="#A5D8FF" stroke-width="3"></path>
+<path d="M46 150 Q26 136 20 112" fill="none" stroke="#10233F" stroke-width="12" stroke-linecap="round"></path>
+<path d="M46 150 Q26 136 20 112" fill="none" stroke="#FFD43B" stroke-width="6" stroke-linecap="round"></path>
+<circle cx="19" cy="106" r="11" fill="#FFD43B" stroke="#10233F" stroke-width="4.5"></circle>
+<rect x="46" y="38" width="136" height="182" rx="18" fill="#FFD43B" stroke="#10233F" stroke-width="6"></rect>
+<path d="M46 192 H182 V202 Q182 220 164 220 H64 Q46 220 46 202 Z" fill="#FCC419"></path>
+<rect x="46" y="38" width="136" height="182" rx="18" fill="none" stroke="#10233F" stroke-width="6"></rect>
+<rect x="66" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="83" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="100" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="117" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="134" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="151" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect><rect x="168" y="26" width="9" height="24" rx="4.5" fill="#CED4DA" stroke="#10233F" stroke-width="3.5"></rect>
+<rect x="68" y="64" width="92" height="30" rx="9" fill="#FFFFFF" stroke="#10233F" stroke-width="4"></rect>
+<text x="114" y="87" text-anchor="middle" font-family="Baloo Bhaijaan 2, Trebuchet MS, sans-serif" font-size="20" font-weight="800" fill="#0B7A75">ABC</text>
+<ellipse cx="94" cy="130" rx="11" ry="14" fill="#10233F"></ellipse><ellipse cx="136" cy="130" rx="11" ry="14" fill="#10233F"></ellipse>
+<circle cx="98" cy="124" r="4" fill="#FFFFFF"></circle><circle cx="140" cy="124" r="4" fill="#FFFFFF"></circle>
+<path d="M86 110 Q94 104 102 108 M128 108 Q136 104 144 110" fill="none" stroke="#10233F" stroke-width="4" stroke-linecap="round"></path>
+<path d="M94 156 Q115 182 136 156 Z" fill="#E8590C" stroke="#10233F" stroke-width="4.5" stroke-linejoin="round"></path>
+<path d="M104 166 Q115 176 126 166 Q115 162 104 166 Z" fill="#FFA8A8"></path>
+<ellipse cx="74" cy="152" rx="10" ry="6" fill="#FF8787" opacity=".6"></ellipse><ellipse cx="156" cy="152" rx="10" ry="6" fill="#FF8787" opacity=".6"></ellipse>
+<g transform="rotate(24 214 140)">
+<rect x="206" y="72" width="18" height="16" fill="#FFA8BA" stroke="#10233F" stroke-width="4"></rect>
+<rect x="206" y="86" width="18" height="10" fill="#ADB5BD" stroke="#10233F" stroke-width="4"></rect>
+<rect x="206" y="94" width="18" height="66" fill="#4DABF7" stroke="#10233F" stroke-width="4"></rect>
+<path d="M212 96 V158" stroke="#A5D8FF" stroke-width="3"></path>
+<polygon points="206 160 224 160 215 182" fill="#FFE8CC" stroke="#10233F" stroke-width="4" stroke-linejoin="round"></polygon>
+<polygon points="212 174 218 174 215 182" fill="#10233F"></polygon></g>
+<path d="M182 164 Q196 158 204 146" fill="none" stroke="#10233F" stroke-width="12" stroke-linecap="round"></path>
+<path d="M182 164 Q196 158 204 146" fill="none" stroke="#FFD43B" stroke-width="6" stroke-linecap="round"></path>
+<circle cx="206" cy="144" r="11" fill="#FFD43B" stroke="#10233F" stroke-width="4.5"></circle></svg>`;
+const themeId=()=>THEMES[state.theme]?state.theme:'luna';
+const TH=()=>THEMES[themeId()];
+const svgOf=id=>id==='luna'?UNI:THEME_SVG[id];
+const MASCOT=()=>svgOf(themeId());
+const petName=()=>state.pet||TH().pet;
+function applyTheme(){
+  const t=TH(),r=document.documentElement;
+  Object.entries(t.vars).forEach(([k,v])=>r.style.setProperty(k,v));
+  const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t.meta);
+  const u=$('#uniHead');if(u&&u.dataset.th!==themeId()){u.innerHTML=MASCOT();u.dataset.th=themeId()}
+}
+function miniBuddy(id,size){const t=THEMES[id];return `<span style="width:${size}px;height:${size}px;border-radius:50%;overflow:hidden;display:block;background:${t.vars['--ring']};padding:${Math.round(size*.07)}px ${Math.round(size*.04)}px 0">${svgOf(id)}</span>`}
+function setTheme(id){
+  const prev=themeId();
+  if(state.pet&&state.pet===THEMES[prev].pet)state.pet='';
+  state.theme=id;state.gender=THEMES[id].gender;save();applyTheme();render();
+}
+function buddySheet(gender,after,sticky){
+  const ids=Object.keys(THEMES).filter(k=>!gender||THEMES[k].gender===gender);
+  let pick=ids.includes(state.theme)?state.theme:ids[0];
+  const card=id=>{const t=THEMES[id];return `<button class="bcard" data-b="${id}" aria-pressed="${id===pick}" style="--c:${t.vars['--grape']};--cb:${t.vars['--bg']};--r:${t.vars['--ring']}">
+    <span class="m">${svgOf(id)}</span><b>${t.pet}</b><span class="sw">${t.sw.map(c=>`<i style="background:${c}"></i>`).join('')}</span>
+    <small>Collect ${t.word.split(' ')[0]} ${t.emoji}</small></button>`};
+  openSheet(`<h3 style="text-align:center">Pick your buddy! ✨</h3>
+    <p style="text-align:center;font-size:17px;color:var(--soft);margin:-6px 0 12px">Your buddy reminds you about homework and cheers you on.</p>
+    ${gender?`<div class="buddies">${ids.map(card).join('')}</div>`
+      :`<div class="lbl">For girls</div><div class="buddies">${['luna','daisy'].map(card).join('')}</div><div class="lbl">For boys</div><div class="buddies">${['bolt','kicko'].map(card).join('')}</div>`}
+    <p class="note" style="text-align:center">You can change your buddy later in Settings.</p>
+    <button class="btn main" id="go" style="width:100%;margin-top:6px">Let’s go with ${THEMES[pick].pet}!</button>
+    ${sticky?'':'<div class="btns"><button class="btn" id="cancel">Cancel</button></div>'}`,
+  (el,close)=>{
+    el.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{pick=b.dataset.b;el.querySelectorAll('[data-b]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));el.querySelector('#go').textContent=`Let’s go with ${THEMES[pick].pet}!`;playTune('bubbles')});
+    if(!sticky)el.querySelector('#cancel').onclick=close;
+    el.querySelector('#go').onclick=()=>{setTheme(pick);close();hop();celebrate();speak(`Hi ${nm()}! I'm ${petName()}!`);if(after)after()};
+  },sticky);
+}
 const DAYS=[{i:0,s:'Sun',n:'Sunday'},{i:1,s:'Mon',n:'Monday'},{i:2,s:'Tue',n:'Tuesday'},{i:3,s:'Wed',n:'Wednesday'},{i:4,s:'Thu',n:'Thursday'}];
 const PALETTE=['#FF5FA8','#7B5CFF','#1FBF9F','#FF9F1C','#2D9CDB','#E84393','#00B894','#A66CFF','#F76E11','#0FB5C9','#D35400','#6C5CE7'];
 const EMOJIS=['🔢','🔬','🔤','✍️','📖','🕌','🌍','🎨','⚽','💻','🧩','🎵','🧪','📐','🌱','🦋','🏠','📝','🌙','🧠'];
@@ -304,7 +465,7 @@ const DEFAULT_SUBJECTS=[
 
 function freshState(){
   const schedule={};DAYS.forEach(d=>schedule[d.i]=Array(9).fill(null));
-  return {v:1,rev:0,name:'',trialUsed:0,pet:'Luna',rewards:[],pin:null,periods:9,m9:true,sound:'chime',voice:true,subjects:DEFAULT_SUBJECTS,schedule,hw:[],stars:0};
+  return {v:1,rev:0,name:'',trialUsed:0,pet:'',theme:'',gender:'',rewards:[],pin:null,periods:9,m9:true,sound:'chime',voice:true,subjects:DEFAULT_SUBJECTS,schedule,hw:[],stars:0};
 }
 let state=freshState();
 let dbRef=null,saveTimer=null,view='today',alerting=null,audioCtx=null,wakeLock=null;
@@ -326,13 +487,12 @@ function relDay(k){
   if(diff===0)return 'Today';if(diff===1)return 'Tomorrow';if(diff===-1)return 'Yesterday';
   return fmtDate(k);
 }
-function level(n){
-  if(n>=50)return 'Galaxy Queen 👑';if(n>=30)return 'Homework Hero 🦸‍♀️';
-  if(n>=15)return 'Super Star 🌟';if(n>=5)return 'Bright Star ✨';return 'Seedling 🌱';
-}
+function level(n){const L=TH().levels;return n>=50?L[4]:n>=30?L[3]:n>=15?L[2]:n>=5?L[1]:L[0]}
 
 /* ---------- Storage ---------- */
 function migrate(raw){
+  if(!state.theme&&state.name){state.theme='luna';state.gender='girl'}
+  if(state.pet==='Luna'&&state.theme&&state.theme!=='luna')state.pet='';
   if(raw&&!raw.m9){if(state.periods<9)state.periods=9;state.m9=true}
   DAYS.forEach(d=>{state.schedule[d.i]=state.schedule[d.i]||[];while(state.schedule[d.i].length<state.periods)state.schedule[d.i].push(null)});
 }
@@ -466,7 +626,7 @@ function initCloud(){
 function contactHtml(){
   const w=(cfg.contact_whatsapp||'').replace(/[^0-9]/g,'');
   return `${cfg.price_text?`<p style="font-size:17px;font-weight:700;background:var(--bg);border-radius:18px;padding:10px 14px;unicode-bidi:plaintext" dir="auto">${esc(cfg.price_text)}</p>`:''}
-    ${w?`<a class="btn green" style="display:block;text-align:center;text-decoration:none;margin-top:8px" target="_blank" rel="noopener" href="https://wa.me/${w}?text=${encodeURIComponent('مرحباً، أرغب في شراء كود تفعيل تطبيق Luna للواجبات 🦄')}">💬 Get a code on WhatsApp</a>`:''}`;
+    ${w?`<a class="btn green" style="display:block;text-align:center;text-decoration:none;margin-top:8px" target="_blank" rel="noopener" href="https://wa.me/${w}?text=${encodeURIComponent('مرحباً، أرغب في شراء كود تفعيل تطبيق Homework Buddy للواجبات 📒')}">💬 Get a code on WhatsApp</a>`:''}`;
 }
 function trialBanner(){
   if(licOK())return '';
@@ -475,18 +635,18 @@ function trialBanner(){
   return `<button class="nextrw" id="trialBtn" style="border-color:${bad||!left?'var(--danger)':'var(--sun)'}">
     <span class="e">${bad?'⚠️':left?'🎁':'🔒'}</span>
     <span style="flex:1">${bad?'Your activation stopped':left?`Free trial: ${left} of ${lim} homework left`:'Your free trial is finished'}<br>
-    <small style="color:var(--soft)">${bad?esc(REASONS[lic.reason]||''):'Tap here to activate Luna and keep going'}</small></span>
+    <small style="color:var(--soft)">${bad?esc(REASONS[lic.reason]||''):'Tap here to activate Homework Buddy and keep going'}</small></span>
     <span class="pill on" style="white-space:nowrap">🔑 Activate</span></button>`;
 }
 function activationSheet(reason,after){
-  const title=reason==='limit'?`You used your ${trialLimit()} free homework! 🎉`:reason==='invalid'?'Activate Luna again 🔑':'Activate Luna 🔑';
+  const title=reason==='limit'?`You used your ${trialLimit()} free homework! 🎉`:reason==='invalid'?'Activate again 🔑':'Activate Homework Buddy 🔑';
   const sub=reason==='limit'?`To keep adding homework, ask your mom or dad for an activation code.`
     :reason==='invalid'?esc(REASONS[lic&&lic.reason]||'Enter a new activation code.')
     :'Enter the activation code you received. Use the same code on the iPad and on your parents’ phones to share the homework.';
-  openSheet(`<div style="text-align:center"><span class="bigUni" style="width:110px;height:110px;border-radius:50%;background:linear-gradient(160deg,#B9A6FF,#FFB3D6);overflow:hidden;padding:8px 5px 0">${UNI}</span>
+  openSheet(`<div style="text-align:center"><span class="bigUni" style="width:110px;height:110px;border-radius:50%;background:var(--ring);overflow:hidden;padding:8px 5px 0">${MASCOT()}</span>
     <h3 style="margin-top:10px">${title}</h3><p style="font-size:17px;color:var(--soft);margin:0 0 6px">${sub}</p></div>
     <div class="lbl">Activation code</div>
-    <input class="field" id="ac" placeholder="LUNA-XXXX-XXXX" autocapitalize="characters" autocomplete="off" spellcheck="false" style="direction:ltr;text-transform:uppercase;font-size:24px;font-weight:800;letter-spacing:2px;text-align:center">
+    <input class="field" id="ac" placeholder="HWB-XXXX-XXXX" autocapitalize="characters" autocomplete="off" spellcheck="false" style="direction:ltr;text-transform:uppercase;font-size:24px;font-weight:800;letter-spacing:2px;text-align:center">
     <p class="note" id="acErr" style="color:var(--danger);font-weight:700;min-height:1em"></p>
     <button class="btn main" id="act" style="width:100%">Activate ✨</button>
     ${contactHtml()}
@@ -496,14 +656,14 @@ function activationSheet(reason,after){
     const go=async()=>{
       const code=el.querySelector('#ac').value.trim().toUpperCase().replace(/\s/g,'');
       const err=el.querySelector('#acErr');
-      if(code.length<10){err.textContent='Type the full code, like LUNA-AB12-CD34';return}
+      if(code.length<10){err.textContent='Type the full code, like HWB-AB12-CD34';return}
       const b=el.querySelector('#act');b.disabled=true;b.textContent='Checking…';err.textContent='';
       try{
         const r=await rpc('activate_license',{p_code:code,p_device:devId(),p_device_name:devName()});
         if(!r||!r.ok){err.textContent=REASONS[r&&r.reason]||'Could not activate. Try again.';b.disabled=false;b.textContent='Activate ✨';return}
         lic={code:r.code,status:'ok',expires:r.expires_at||null,at:Date.now(),checked:Date.now()};saveLic();
         close();await syncNow(!!r.has_data);render();celebrate();playTune('xylo');
-        toast('Luna is activated! 🎉');speak(`Yay! Luna is activated!`);
+        toast('Homework Buddy is activated! 🎉');speak(`Yay! You are all set!`);
         if(after)after();
       }catch(e){err.textContent='No internet connection. Try again.';b.disabled=false;b.textContent='Activate ✨'}
     };
@@ -526,24 +686,39 @@ function accountSheet(){
   });
 }
 function onboarding(){
-  openSheet(`<div style="text-align:center"><span class="bigUni" style="width:130px;height:130px;border-radius:50%;background:linear-gradient(160deg,#B9A6FF,#FFB3D6);overflow:hidden;padding:8px 5px 0">${UNI}</span>
-    <h3 style="margin-top:10px">Hi! I’m Luna 🦄</h3>
-    <p style="font-size:18px;color:var(--soft);margin:0">Your homework buddy. I’ll remind you when it’s homework time!</p></div>
+  let g=state.gender||'';
+  openSheet(`<div style="text-align:center"><span style="display:inline-block;width:130px">${NOTEBOOK}</span>
+    <h3 style="margin-top:6px">Welcome to Homework Buddy!</h3>
+    <p style="font-size:17px;color:var(--soft);margin:0">Let’s get to know you.</p></div>
     <div class="lbl">What’s your name? (English or عربي)</div>
-    <input class="field" id="on" dir="auto" maxlength="30" placeholder="Your name" style="font-size:24px;font-weight:700;text-align:center">
-    <button class="btn pink" id="trial" style="width:100%;margin-top:16px">✨ Start my free trial<br><small style="font-size:14px;font-weight:600">${trialLimit()} free homework</small></button>
+    <input class="field" id="on" dir="auto" maxlength="30" placeholder="Your name" value="${esc(state.name)}" style="font-size:24px;font-weight:700;text-align:center">
+    <div class="lbl">Are you a boy or a girl?</div>
+    <div style="display:flex;gap:12px">
+      <button class="gbtn" data-g="boy" aria-pressed="${g==='boy'}"><span class="ms">${miniBuddy('bolt',50)}${miniBuddy('kicko',50)}</span>I’m a boy</button>
+      <button class="gbtn" data-g="girl" aria-pressed="${g==='girl'}"><span class="ms">${miniBuddy('luna',50)}${miniBuddy('daisy',50)}</span>I’m a girl</button>
+    </div>
+    <button class="btn main" id="next" style="width:100%;margin-top:16px;background:#7C6CF2;border-color:#7C6CF2;box-shadow:0 5px 0 #5B4BD0">Next ➜</button>`,
+  (el,close)=>{
+    el.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{g=b.dataset.g;el.querySelectorAll('[data-g]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
+    el.querySelector('#next').onclick=()=>{
+      const n=el.querySelector('#on').value.trim();
+      if(!n){toast('Type your name first 🙂');el.querySelector('#on').focus();return}
+      if(!g){toast('Choose boy or girl 🙂');return}
+      state.name=n;state.gender=g;close();
+      buddySheet(g,startChoice,true);
+    };
+  },true);
+}
+function startChoice(){
+  if(licOK()){speak(`Let's add your first homework!`);return}
+  openSheet(`<div style="text-align:center"><span class="bigUni" style="width:120px;height:120px;border-radius:50%;background:var(--ring);overflow:hidden;padding:8px 5px 0">${MASCOT()}</span>
+    <h3 style="margin-top:10px">Hi ${esc(nm())}! I’m ${esc(petName())}</h3>
+    <p style="font-size:17px;color:var(--soft);margin:0">I’ll remind you when it’s homework time!</p></div>
+    <button class="btn pink" id="trial" style="width:100%;margin-top:18px">✨ Start my free trial<br><small style="font-size:14px;font-weight:600">${trialLimit()} free homework</small></button>
     <button class="btn" id="code" style="width:100%;margin-top:10px">🔑 I have an activation code</button>`,
   (el,close)=>{
-    const name=()=>el.querySelector('#on').value.trim();
-    el.querySelector('#trial').onclick=()=>{
-      if(!name()){toast('Type your name first 🙂');el.querySelector('#on').focus();return}
-      state.name=name();save();close();render();hop();speak(`Hi ${state.name}! I'm Luna. Let's add your first homework!`);
-    };
-    el.querySelector('#code').onclick=()=>{
-      if(name()){state.name=name();save()}
-      close();activationSheet('onboard',()=>{if(!state.name)onboarding()});
-      setTimeout(()=>{if(!state.name&&!document.querySelector('.scrim'))onboarding()},400);
-    };
+    el.querySelector('#trial').onclick=()=>{close();render();speak(`Let's add your first homework, ${nm()}!`)};
+    el.querySelector('#code').onclick=()=>{close();activationSheet('onboard')};
   },true);
 }
 
@@ -593,20 +768,36 @@ async function toggleWake(){
 
 /* ---------- Header ---------- */
 function drawJar(){
-  const n=state.stars%20, full=Math.floor(state.stars/20);
-  let s='';
-  const pos=[];for(let r=0;r<5;r++)for(let c=0;c<4;c++)pos.push([33+c*18+(r%2?6:0),132-r*18]);
-  for(let i=0;i<n;i++){const[x,y]=pos[i];s+=`<text x="${x}" y="${y}" font-size="19" fill="#FFC23C" stroke="#E0A200" stroke-width=".6" text-anchor="middle">★</text>`}
-  $('#jar').innerHTML=`
-   <rect x="30" y="6" width="60" height="18" rx="6" fill="#FF5FA8"/>
-   <rect x="26" y="22" width="68" height="8" rx="4" fill="#E0498F"/>
-   <path d="M28 30 Q18 30 18 44 L18 128 Q18 144 34 144 L86 144 Q102 144 102 128 L102 44 Q102 30 92 30 Z" fill="rgba(123,92,255,.12)" stroke="#7B5CFF" stroke-width="4"/>
-   ${s}
-   <path d="M30 46 L30 110" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".6"/>
-   ${full?`<circle cx="98" cy="20" r="16" fill="#1FBF9F"/><text x="98" y="26" font-size="16" fill="#fff" text-anchor="middle" font-weight="800">×${full}</text>`:''}`;
-  $('#starCount').textContent=state.stars;$('#lvl').textContent=level(state.stars);
+  const tot=state.stars,n=tot%20,full=Math.floor(tot/20),id=themeId(),DKc='#10233F';
+  const lvl5=Math.min(5,Math.ceil((n||(tot?20:0))/4));
+  let body='';
+  if(id==='luna'){
+    let st='';const pos=[];for(let r=0;r<5;r++)for(let c=0;c<4;c++)pos.push([33+c*18+(r%2?6:0),132-r*18]);
+    for(let i=0;i<n;i++){const[x,y]=pos[i];st+=`<text x="${x}" y="${y}" font-size="19" fill="#FFC23C" stroke="#E0A200" stroke-width=".6" text-anchor="middle">★</text>`}
+    body=`<rect x="30" y="6" width="60" height="18" rx="6" fill="#FF5FA8"/><rect x="26" y="22" width="68" height="8" rx="4" fill="#E0498F"/>
+     <path d="M28 30 Q18 30 18 44 L18 128 Q18 144 34 144 L86 144 Q102 144 102 128 L102 44 Q102 30 92 30 Z" fill="rgba(123,92,255,.12)" stroke="#7B5CFF" stroke-width="4"/>${st}
+     <path d="M30 46 L30 110" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".6"/>`;
+  }else if(id==='daisy'){
+    const fx=[{x:32,y:56,c:'#FF8FA3'},{x:88,y:52,c:'#FFA94D'},{x:60,y:34,c:'#B197FC'},{x:44,y:74,c:'#FFD43B'},{x:76,y:72,c:'#FF8FA3'}];
+    body=fx.slice(0,Math.max(1,lvl5)).map((f,k)=>k<lvl5?`<path d="M${f.x} 96 Q${f.x+3} ${(96+f.y)/2} ${f.x} ${f.y}" stroke="#2F9E44" stroke-width="4" fill="none"/><circle cx="${f.x}" cy="${f.y}" r="12" fill="${f.c}" stroke="${DKc}" stroke-width="3"/><circle cx="${f.x}" cy="${f.y}" r="4.5" fill="#FFD43B"/>`
+      :`<path d="M60 96 Q62 84 60 76" stroke="#2F9E44" stroke-width="4" fill="none"/><ellipse cx="54" cy="80" rx="7" ry="4" fill="#51CF66"/>`).join('')+
+      `<path d="M20 96 H100 L90 144 H30 Z" fill="#E8590C" stroke="${DKc}" stroke-width="4.5" stroke-linejoin="round"/><rect x="14" y="90" width="92" height="14" rx="5" fill="#FF922B" stroke="${DKc}" stroke-width="4.5"/>`;
+  }else if(id==='bolt'){
+    let bars='';for(let k=0;k<5;k++)bars+=`<rect x="26" y="${118-k*20}" width="56" height="15" rx="4" fill="${k<lvl5?'#12B8D4':'#E3ECF7'}"/>`;
+    body=`<rect x="42" y="8" width="24" height="12" rx="4" fill="${DKc}"/><rect x="16" y="18" width="76" height="126" rx="16" fill="#fff" stroke="${DKc}" stroke-width="5"/>${bars}
+      <polygon points="62 40 40 82 56 82 46 118 76 70 60 70 70 40" fill="#FFC23C" stroke="${DKc}" stroke-width="3.5" stroke-linejoin="round"/>`;
+  }else{
+    const balls=[[30,138],[48,138],[66,138],[84,138],[102,138]].slice(0,lvl5).map(([x,y])=>`<circle cx="${x-6}" cy="${y}" r="8" fill="#fff" stroke="${DKc}" stroke-width="2.5"/><circle cx="${x-6}" cy="${y}" r="3" fill="${DKc}"/>`).join('');
+    body=`<path d="M30 14 H90 V44 Q90 76 60 80 Q30 76 30 44 Z" fill="#FCC419" stroke="${DKc}" stroke-width="4.5" stroke-linejoin="round"/>
+      <path d="M30 22 H14 Q12 52 34 56 M90 22 H106 Q108 52 86 56" fill="none" stroke="${DKc}" stroke-width="4.5" stroke-linecap="round"/>
+      <rect x="52" y="80" width="16" height="16" fill="#F59F00" stroke="${DKc}" stroke-width="4"/><rect x="34" y="96" width="52" height="16" rx="4" fill="#12B886" stroke="${DKc}" stroke-width="4"/>
+      <circle cx="60" cy="42" r="14" fill="#fff" stroke="${DKc}" stroke-width="3"/><polygon points="60 34 67 39 64 47 56 47 53 39" fill="${DKc}"/>${balls}`;
+  }
+  $('#jar').innerHTML=body+(full?`<circle cx="98" cy="20" r="16" fill="#1FBF9F"/><text x="98" y="26" font-size="16" fill="#fff" text-anchor="middle" font-weight="800">×${full}</text>`:'');
+  $('#starCount').textContent=tot;$('#lvl').textContent=level(tot);$('#collWord').textContent=TH().word;
 }
 function header(){
+  applyTheme();
   const h=new Date().getHours();
   const g=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
   $('#hi').textContent=state.name?`${g}, ${state.name}!`:`${g}!`;
@@ -618,7 +809,7 @@ function header(){
   drawJar();
   const b=$('#upBadge');b.hidden=!left;b.textContent=left;
   const sn=$('#splashName');if(sn)sn.textContent=state.name?`Hi ${state.name}!`:'Hi! I’m Luna';
-  $('#petName').textContent=state.pet||'Luna';
+  $('#petName').textContent=petName();
 }
 
 /* ---------- Views ---------- */
@@ -677,7 +868,7 @@ function vSchedule(){
 }
 function vUpcoming(){
   const todo=state.hw.filter(h=>!h.done).sort((a,b)=>a.due.localeCompare(b.due)||a.remindAt-b.remindAt);
-  if(!todo.length)return `<h2>Upcoming homework</h2>`+emptyBox('🦄','No homework waiting. Add one with the pink button!')+`<div style="height:14px"></div><button class="addbig" id="addBtn"><span class="plus">+</span>Add new homework</button>`;
+  if(!todo.length)return `<h2>Upcoming homework</h2>`+emptyBox('📒','No homework waiting. Add one with the big button!')+`<div style="height:14px"></div><button class="addbig" id="addBtn"><span class="plus">+</span>Add new homework</button>`;
   const groups={};todo.forEach(h=>{const g=h.due<todayK()?'Late':relDay(h.due);(groups[g]=groups[g]||[]).push(h)});
   return `<h2>Upcoming homework</h2>`+Object.entries(groups).map(([g,l])=>`<h2 style="font-size:21px">${g==='Late'?'⚠️ Late':'📅 '+g} <small>${l.length}</small></h2><div class="list">${l.map(hwCard).join('')}</div>`).join('');
 }
@@ -710,11 +901,11 @@ function vRewards(){
     return `<div class="rw ${rwReady(r)?'ready':''} ${r.given?'given':''}">
       <div class="t"><span class="e">${r.emoji}</span><span dir="auto">${esc(r.title)}</span></div>
       ${r.given?`<div class="meta">You got it on ${fmtDate(key(r.givenAt))} 💖</div>`:`
-      <div class="bar"><div class="fill" style="width:${pct}%"></div><span class="run" style="left:${Math.max(4,pct)}%">${UNI}</span><span class="goal">${r.emoji}</span></div>
+      <div class="bar"><div class="fill" style="width:${pct}%"></div><span class="run" style="left:${Math.max(4,pct)}%">${MASCOT()}</span><span class="goal">${r.emoji}</span></div>
       <div class="meta">${rwReady(r)?'🎉 You earned it! Show this to Mom or Dad.':`⭐ ${p} of ${r.stars} stars`}</div>`}
     </div>`};
   return `<h2>My rewards <small>finish homework to earn stars</small></h2>
-    ${open.length?`<div class="list">${open.map(card).join('')}</div>`:`<div class="empty-state"><span class="bigUni" style="width:120px;height:120px">${UNI}</span>No rewards yet. Ask Mom or Dad to add one!</div>`}
+    ${open.length?`<div class="list">${open.map(card).join('')}</div>`:`<div class="empty-state"><span class="bigUni" style="width:120px;height:120px">${MASCOT()}</span>No rewards yet. Ask Mom or Dad to add one!</div>`}
     ${given.length?`<h2>Rewards I got 💖</h2><div class="list">${given.map(card).join('')}</div>`:''}
     <div style="height:18px"></div><button class="btn" id="parentBtn" style="width:100%">👨‍👩‍👧 Parents: manage rewards 🔒</button>`;
 }
@@ -772,7 +963,7 @@ function checkRewards(){
   r.announced=true;save();
   setTimeout(()=>{
     const a=document.createElement('div');a.className='alarm';a.setAttribute('role','alertdialog');
-    a.innerHTML=`<div class="box"><span class="bigUni">${UNI}</span>
+    a.innerHTML=`<div class="box"><span class="bigUni">${MASCOT()}</span>
       <h3>Yay ${esc(nm())}! You earned a reward!</h3>
       <p style="font-size:44px;margin:6px 0">${r.emoji}</p><p dir="auto"><b>${esc(r.title)}</b></p>
       <p style="color:var(--soft);font-size:17px">Show this to Mom or Dad 💖</p>
@@ -872,7 +1063,7 @@ function hwSheet(opts={}){
       remO.innerHTML=days.map(k=>`<button class="opt" data-r="${k}" aria-pressed="${k===remDay}">${relDay(k)}<small>${fromKey(k).toLocaleDateString('en-US',{weekday:'long'})}</small></button>`).join('');
       remTxt();
     };
-    const remTxt=()=>{const r=remindTs(remDay,el.querySelector('#tm').value||'16:00');el.querySelector('#remTxt').textContent=`🦄 I’ll remind you ${(d=>['Today','Tomorrow'].includes(d)?d.toLowerCase():'on '+d)(relDay(key(r)))} at ${fmtTime(r)}`+(r-Date.now()<3*6e4&&remDay===todayK()?' (that time already passed, so in 2 minutes)':'')};
+    const remTxt=()=>{const r=remindTs(remDay,el.querySelector('#tm').value||'16:00');el.querySelector('#remTxt').textContent=`⏰ I’ll remind you ${(d=>['Today','Tomorrow'].includes(d)?d.toLowerCase():'on '+d)(relDay(key(r)))} at ${fmtTime(r)}`+(r-Date.now()<3*6e4&&remDay===todayK()?' (that time already passed, so in 2 minutes)':'')};
     el.querySelector('#manage').onclick=()=>subjectsSheet(()=>{if(sid&&!subj(sid))sid=null;drawPer();drawSub()});
     drawPer();drawSub();drawDue();drawRem();
     remO.onclick=e=>{const b=e.target.closest('[data-r]');if(!b)return;remDay=b.dataset.r;press(remO,b);remTxt()};
@@ -992,12 +1183,13 @@ function cellSheet(d,p){
 function settingsSheet(){
   openSheet(`<h3>Settings ⚙️</h3>
     <div class="lbl">Name</div><input class="field" id="nm" dir="auto" value="${esc(state.name)}">
-    <div class="lbl">Unicorn’s name 🦄</div><input class="field" id="pn" dir="auto" value="${esc(state.pet||'Luna')}">
+    <div class="lbl">My buddy</div><button class="btn" id="buddy" style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px">${miniBuddy(themeId(),40)} Change my buddy</button>
+    <div class="lbl">Buddy’s name</div><input class="field" id="pn" dir="auto" value="${esc(petName())}">
     <div class="lbl">Subjects</div><button class="btn" id="subs" style="width:100%">📚 My subjects: edit or delete</button>
     <div class="lbl">Classes per day</div><div class="opts" id="pO">${[5,6,7,8,9].map(n=>`<button class="opt" data-n="${n}" aria-pressed="${n===state.periods}">${n}</button>`).join('')}</div>
     <div class="lbl">Reminder sound</div><div class="opts" id="sO">${Object.entries(TUNES).map(([k,t])=>`<button class="opt" data-t="${k}" aria-pressed="${k===state.sound}">${t.name}</button>`).join('')}</div>
     <div class="lbl">Talking reminder</div><div class="opts" id="vO"><button class="opt" data-v="1" aria-pressed="${state.voice}">🗣️ On</button><button class="opt" data-v="0" aria-pressed="${!state.voice}">🔇 Off</button></div>
-    <div class="lbl">Account</div><button class="btn" id="acct" style="width:100%">${licOK()?'🔑 Activated ✓ · Account & sync 🔒':'🔑 Activate Luna'}</button>
+    <div class="lbl">Account</div><button class="btn" id="acct" style="width:100%">${licOK()?'🔑 Activated ✓ · Account & sync 🔒':'🔑 Activate Homework Buddy'}</button>
     <div class="btns"><button class="btn pink" id="test">Test the alarm 🔔</button><button class="btn main" id="ok">Done</button></div>
     <p class="note">For alarms to ring, keep this page open on the iPad with the volume up and the side switch off silent. Tap “Keep awake” so the screen doesn’t turn off.</p>`,
   (el,close)=>{
@@ -1005,9 +1197,10 @@ function settingsSheet(){
     el.querySelector('#sO').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;state.sound=b.dataset.t;press(el.querySelector('#sO'),b);playTune(state.sound);save()};
     el.querySelector('#vO').onclick=e=>{const b=e.target.closest('[data-v]');if(!b)return;state.voice=b.dataset.v==='1';press(el.querySelector('#vO'),b);save()};
     el.querySelector('#acct').onclick=()=>{close();licOK()?pinGate(accountSheet):activationSheet(lic&&lic.status==='invalid'?'invalid':'manual')};
+    el.querySelector('#buddy').onclick=()=>{close();buddySheet('')};
     el.querySelector('#subs').onclick=()=>{close();subjectsSheet()};
     el.querySelector('#test').onclick=()=>{playTune(state.sound,2);speak(`${nm()}! It's homework time!`)};
-    el.querySelector('#ok').onclick=()=>{const n=el.querySelector('#nm').value.trim();if(n)state.name=n;const pn=el.querySelector('#pn').value.trim();if(pn)state.pet=pn;save();close();render()};
+    el.querySelector('#ok').onclick=()=>{const n=el.querySelector('#nm').value.trim();if(n)state.name=n;const pn=el.querySelector('#pn').value.trim();state.pet=(pn&&pn!==TH().pet)?pn:'';save();close();render()};
   });
 }
 
@@ -1016,7 +1209,7 @@ function toggleDone(id){
   const h=state.hw.find(x=>x.id===id);if(!h)return;
   if(!h.done){h.done=true;h.doneAt=Date.now();state.stars++;save();render();celebrate();
     const praise=['Great job','Awesome','You did it','Super star','Well done'][Math.floor(Math.random()*5)];
-    toast(`${praise}, ${nm()}! +1 ⭐`);speak(`${praise}, ${nm()}!`);
+    toast(`${praise}, ${nm()}! +1 ${TH().emoji}`);speak(`${praise}, ${nm()}!`);
     if(state.stars%5===0)setTimeout(()=>toast(`New level: ${level(state.stars)}`),1600);
     hop();checkRewards();
   }else{h.done=false;h.doneAt=null;state.stars=Math.max(0,state.stars-1);h.nextAlert=Math.max(h.remindAt,Date.now()+6e4);save();render()}
@@ -1033,7 +1226,7 @@ function celebrate(){
 }
 function confirmDelete(h){
   const L=hwLook(h);
-  openSheet(`<div style="text-align:center"><span class="bigUni" style="width:110px;height:110px;border-radius:50%;background:linear-gradient(160deg,#B9A6FF,#FFB3D6);overflow:hidden;padding:8px 5px 0">${UNI}</span>
+  openSheet(`<div style="text-align:center"><span class="bigUni" style="width:110px;height:110px;border-radius:50%;background:var(--ring);overflow:hidden;padding:8px 5px 0">${MASCOT()}</span>
     <h3 style="margin-top:10px">Delete this homework?</h3>
     <p style="font-size:19px;margin:0 0 4px" dir="auto"><b>${L.emoji} ${esc(L.title)}</b></p>
     ${h.text?`<p style="font-size:17px;color:var(--soft);margin:0" dir="auto">${esc(h.text)}</p>`:''}
@@ -1058,7 +1251,7 @@ function showAlarm(h){
   alerting=h.id;h.nextAlert=Date.now()+10*6e4;save();
   const L=hwLook(h),T=typ(h.type);
   const a=document.createElement('div');a.className='alarm';a.setAttribute('role','alertdialog');
-  a.innerHTML=`<div class="box"><span class="bigUni">${UNI}</span>
+  a.innerHTML=`<div class="box"><span class="bigUni">${MASCOT()}</span>
     <h3>${esc(nm())}! It’s ${T.exam?'study':h.type==='other'?'task':'homework'} time! ⏰</h3>
     <p><b dir="auto">${L.emoji} ${h.type==='other'?esc(L.title)+(L.subject?' · '+esc(L.subject):''):esc(L.title)+' '+T.name}</b></p>
     <p dir="auto">${esc(h.text)}</p>
