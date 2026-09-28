@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>Luna — لوحة الإدارة</title>
+<title>Homework Buddy — لوحة الإدارة</title>
 <link rel="icon" type="image/png" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,7 +54,7 @@ th{color:var(--soft);font-size:14px}
 </head>
 <body>
 <div id="login" class="card" hidden>
-  <h1>🦄 Luna</h1>
+  <h1>📒 Homework Buddy</h1>
   <p class="muted" style="font-size:16px">لوحة إدارة أكواد التفعيل</p>
   <label>كلمة المرور<input type="password" id="pw" autocomplete="current-password" dir="ltr"></label>
   <p class="err" id="lerr"></p>
@@ -63,7 +63,7 @@ th{color:var(--soft);font-size:14px}
 
 <div class="wrap" id="app" hidden>
   <div class="top">
-    <h1>🦄 Luna — أكواد التفعيل</h1>
+    <h1>📒 Homework Buddy — أكواد التفعيل</h1>
     <div class="acts"><button class="btn" id="refresh">🔄 تحديث</button><button class="btn" id="logout">خروج</button></div>
   </div>
 
@@ -132,12 +132,12 @@ function status(r){
 }
 function message(r){
   return `مرحباً${r.customer?' '+r.customer:''} 👋
-كود تفعيل تطبيق Luna للواجبات 🦄:
+كود تفعيل تطبيق Homework Buddy للواجبات 📒:
 ${r.code}
 
 رابط التطبيق: ${APP_URL}
 
-طريقة التفعيل: افتح التطبيق ← ⚙️ الإعدادات ← 🔑 Activate Luna ← أدخل الكود.
+طريقة التفعيل: افتح التطبيق ← ⚙️ الإعدادات ← 🔑 Activate Homework Buddy ← أدخل الكود.
 يمكن استخدام نفس الكود على ${r.max_devices} أجهزة (آيباد الطالب وجوالات الوالدين) لمشاركة الواجبات.${r.expires_at?`
 صالح حتى: ${fmt(r.expires_at)}`:''}`;
 }
