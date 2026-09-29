@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Homework Buddy">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#8B6CFF">
+<meta name="color-scheme" content="light dark">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
@@ -177,7 +178,7 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 .uni.happy svg{animation:hop .5s ease 2}
 .bubble{position:relative;display:inline-block;margin-top:10px;background:var(--card);border:3px solid var(--line);border-radius:22px;padding:8px 16px;font-size:18px;font-weight:600;color:var(--ink);box-shadow:var(--shadow)}
 .bubble::before{content:"";position:absolute;left:-12px;top:14px;border:8px solid transparent;border-right:12px solid var(--line)}
-.bubble b{color:var(--grape)}
+.bubble b{color:var(--grape-t)}
 .bigUni{width:150px;height:150px;margin:0 auto;display:block}
 .bigUni svg{width:100%;height:100%}
 .alarm .bigUni,.empty-state .bigUni{border-radius:50%;background:var(--ring);overflow:hidden;padding:10px 6px 0}
@@ -213,7 +214,7 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 .subrow .x small{display:block;color:var(--soft);font-weight:600;font-size:13px}
 .mini{padding:6px 12px;border-radius:14px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:15px}
 .mini.red{color:var(--danger);border-color:var(--danger)}
-.linkbtn{margin-top:10px;font-weight:700;color:var(--grape);font-size:16px;padding:4px 0}
+.linkbtn{margin-top:10px;font-weight:700;color:var(--grape-t);font-size:16px;padding:4px 0}
 .splash{background:#FFFCF5 !important;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 37px,#DCE3FF 37px,#DCE3FF 39px) !important;color:#22304F !important;display:flex !important;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:hidden}
 .splash::before{content:"";position:absolute;left:7%;top:0;bottom:0;width:3px;background:#F9A8BE}
 .splash .blob{position:absolute;border-radius:50%}
@@ -230,14 +231,14 @@ textarea{min-height:96px;resize:vertical;unicode-bidi:plaintext}
 #startBtn .pl{width:48px;height:48px;border-radius:50%;background:#FFD43B;display:grid;place-items:center;color:#22304F;font-size:22px}
 .buddies{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .bcard{border:4px solid var(--line);border-radius:26px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--card)}
-.bcard[aria-pressed="true"]{border-color:var(--c);background:var(--cb)}
+.bcard[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 16%,var(--card))}
 .bcard .m{width:112px;height:112px;border-radius:50%;overflow:hidden;background:var(--r);padding:8px 5px 0}
 .bcard .m svg{width:100%;height:100%;display:block}
 .bcard b{font-size:22px}
 .bcard .sw{display:flex;gap:5px}.bcard .sw i{width:20px;height:20px;border-radius:7px;display:block}
 .bcard small{font-weight:700;color:var(--soft)}
 .gbtn{flex:1;border:4px solid var(--line);border-radius:24px;padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--card);font-size:20px;font-weight:800}
-.gbtn[aria-pressed="true"]{border-color:#7C6CF2;background:#F1EFFF}
+.gbtn[aria-pressed="true"]{border-color:#7C6CF2;background:color-mix(in srgb,#7C6CF2 16%,var(--card))}
 .gbtn .ms{display:flex;gap:4px}
 .gbtn .ms span{width:50px;height:50px;border-radius:50%;overflow:hidden;padding:4px 3px 0;border:3px solid #fff}
 .gbtn .ms svg{width:100%;height:100%;display:block}
@@ -439,11 +440,23 @@ const TH=()=>THEMES[themeId()];
 const svgOf=id=>id==='luna'?UNI:THEME_SVG[id];
 const MASCOT=()=>svgOf(themeId());
 const petName=()=>state.pet||TH().pet;
+const DARK={
+ luna:{'--bg':'#1B1230','--bg2':'#2A1636','--card':'#2A1F45','--line':'#3D2F63','--ink':'#F6F0FF','--soft':'#BBA9DA','--grape-t':'#C4B5FF'},
+ daisy:{'--bg':'#22141A','--bg2':'#3A1C28','--card':'#33202A','--line':'#4D2F3B','--ink':'#FFF0F3','--soft':'#D9B3BF','--grape-t':'#FF9DBE'},
+ bolt:{'--bg':'#0F1530','--bg2':'#1B2550','--card':'#1C2447','--line':'#2E3A6B','--ink':'#EEF2FF','--soft':'#AAB6E0','--grape-t':'#9DB4FF'},
+ kicko:{'--bg':'#0E1F14','--bg2':'#173524','--card':'#183022','--line':'#2A4A36','--ink':'#EAF8EE','--soft':'#A7C9B2','--grape-t':'#86E3A2'},
+ notebook:{'--bg':'#17162A','--bg2':'#2A1F33','--card':'#25233D','--line':'#3A3760','--ink':'#F2F0FF','--soft':'#B7B3DA','--grape-t':'#B9AEFF'}};
+const darkMQ=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
+const isDark=()=>!!(darkMQ&&darkMQ.matches);
+if(darkMQ&&darkMQ.addEventListener)darkMQ.addEventListener('change',()=>{applyTheme();render()});
 function applyTheme(){
-  const t=TH(),r=document.documentElement;
-  Object.entries(t.vars).forEach(([k,v])=>r.style.setProperty(k,v));
-  const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t.meta);
-  const u=$('#uniHead');if(u&&u.dataset.th!==themeId()){u.innerHTML=MASCOT();u.dataset.th=themeId()}
+  const id=themeId(),t=TH(),r=document.documentElement,dk=isDark();
+  const light={'--card':'#FFFFFF','--grape-t':t.vars['--grape']};
+  const v=Object.assign({},t.vars,light,dk?(DARK[id]||DARK.luna):{});
+  Object.entries(v).forEach(([k,x])=>r.style.setProperty(k,x));
+  r.style.colorScheme=dk?'dark':'light';
+  const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',dk?v['--bg']:t.meta);
+  const u=$('#uniHead');if(u&&u.dataset.th!==id){u.innerHTML=MASCOT();u.dataset.th=id}
 }
 function miniBuddy(id,size){const t=THEMES[id];return `<span style="width:${size}px;height:${size}px;border-radius:50%;overflow:hidden;display:block;background:${t.vars['--ring']};padding:${Math.round(size*.07)}px ${Math.round(size*.04)}px 0">${svgOf(id)}</span>`}
 function setTheme(id){
