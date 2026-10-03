@@ -752,7 +752,7 @@ const REASONS={not_found:'This code is not correct. Check it and try again.',rev
   too_many_devices:'This code is already used on the maximum number of devices.',device_removed:'This device was removed from the account.',bad_device:'Please try again.'};
 function syncPill(){
   const b=$('#syncPill');if(!b)return;
-  b.hidden=!licOK();
+  b.hidden=!licOK()&&!syncErr;
   b.textContent=syncErr?'☁️ ⚠️':syncing?'☁️ …':'☁️ ✓';
   b.title=syncErr?('Sync problem: '+syncErr):'Synced '+(lastSync?fmtTime(lastSync):'');
 }
@@ -762,6 +762,7 @@ function adopt(next){
   snap();
 }
 function licenseLost(reason){
+  if(typeof ZCODE!=='undefined'&&(!window.__reAct||Date.now()-window.__reAct>60000)){window.__reAct=Date.now();lic=null;saveLic();autoActivate().then(()=>render());return}
   if(!lic)return;lic.status='invalid';lic.reason=reason;saveLic();syncPill();
   if(!document.querySelector('.scrim'))render();
 }
@@ -794,11 +795,25 @@ async function loadConfig(){
 async function autoActivate(){
   try{
     const r=await rpc('activate_license',{p_code:ZCODE,p_device:devId(),p_device_name:devName()});
-    if(!r||!r.ok)return false;
-    lic={code:r.code,status:'ok',expires:null,at:Date.now(),checked:Date.now()};saveLic();
-    if(r.has_data&&Object.values(fam.kids).every(k=>!(k.hw||[]).length&&!k.stars))Object.values(fam.kids).forEach(k=>{k.name='';k.t=0});
+    if(!r||!r.ok){syncErr=REASONS[r&&r.reason]||'Could not connect to sync';syncPill();return false}
+    syncErr='';lic={code:r.code,status:'ok',expires:null,at:Date.now(),checked:Date.now()};saveLic();
+    if(r.has_data){
+      const g=await rpc('get_license_data',{p_code:ZCODE,p_device:devId()});
+      const remote=g&&g.ok?wrapFam(g.data):null;
+      if(remote&&remote.kids){
+        const norm=n=>String(n||'').trim().toLowerCase(),rids=Object.keys(remote.kids);let moved=false;
+        Object.keys(fam.kids).forEach(id=>{
+          if(remote.kids[id])return;const k=fam.kids[id];
+          if(isBlank(k)||(!(k.hw||[]).length&&!k.stars)){k.name='';k.t=0;return}
+          let rid=rids.find(x=>norm(remote.kids[x].name)===norm(k.name));
+          if(!rid&&rids.length===1&&Object.keys(fam.kids).length===1)rid=rids[0];
+          if(rid&&!fam.kids[rid]){fam.kids[rid]=k;delete fam.kids[id];fam.order=fam.order.map(x=>x===id?rid:x);if(activeId===id)activeId=rid;moved=true}
+        });
+        if(moved)adoptFam(fam,activeId);
+      }
+    }
     await syncNow(!!r.has_data);return true;
-  }catch(e){return false}
+  }catch(e){syncErr=navigator.onLine===false?'No internet':'Could not connect to sync';syncPill();return false}
 }
 function presetZain(){
   if(state.name)return;
